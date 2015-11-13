@@ -3,6 +3,7 @@
 namespace Library\Image;
 
 use Exception;
+use Entities\FilePath;
 use Library\Image\Interfaces\iIMage;
 
 /**
@@ -12,31 +13,32 @@ class ImageBase implements iIMage {
 
 	const IMAGE_MAX_SIZE_IN_MB = 10;
 
-	private $imagePath;
+	private $image;
 
-	public function __construct($imagePath) {
+	public function __construct(FilePath $image) {
+		$imagePath = $image->getFullPath();
 		if (!file_exists($imagePath)) {
-			throw new Exception("File does not exist: $imagePath");
+			throw new Exception("File does not exist: $image");
 		}
 
-		$this->imagePath = $imagePath;
+		$this->image = $image;
 	}
 
-	/*** $imagePath ***/
-	public function getPathToImageFile() {
-		return $this->imagePath;
+	/*** $image ***/
+	public function getImage() {
+		return $this->image;
 	}
 
-	public function setPathToImageFile($imagePath) {
-		$this->imagePath = $imagePath;
+	public function setImage(FilePath $image) {
+		$this->image = $image;
 	}
-	/*** $imagePath ***/
+	/*** $image ***/
 
 
 	/**
 	 * Get image maximum size in bytes.
 	 */
-	public  static function getImageMaxSizeInBytes() {
+	public static function getImageMaxSizeInBytes() {
 		return (ImageBase::IMAGE_MAX_SIZE_IN_MB * 1024 * 1024);
 	}
 }

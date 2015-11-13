@@ -9,6 +9,7 @@ use Library\Image\Optimization\PNGQuant;
 
 /**
  * Class we will be used image resizing and image compression.
+ * For compression of PNG files we use @see Library\Image\Optimization\PNGQuant
  *
  * @author dimitar.danailov@mentormate.com
  */
@@ -79,7 +80,8 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 	 */
 	public function changeImageQualityForJPEG($quality)  {
 		$this->setImageCompressionQuality($quality);
-		$operationResponse = $this->saveImageToFileSystem();
+		$imagePath = $this->imageWithOptimization->getFullPath();
+		$operationResponse = $this->saveImageToFileSystem($imagePath);
 		
 		return $operationResponse;
 	}
@@ -90,29 +92,36 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 	 * @return If you we can save the image we return true.
 	 */
 	public function changeImageQualityForPNG($quality) {
-		// Try to save image to file system.
-		try {
-			$this->writeImage($this->newImageLocation);
+		$tempImageName = uniqid() . $this->imageWithOptimization->getFileName();
+		$tempFilePath = new FilePath($this->imageWithOptimization->getPath(), $tempImageName);
+		$operationResponse = $this->writeImage($tempFilePath->getFullPath());
 
-			$pngQuant = new PNGQuant($this->newImageLocation, $quality);
-			$pngQuant->storeCompressImage($this->newImageLocation);
-			$this->destroy();
+		if ($operationResponse) {
+			// Try to optimize png
+			try {
+				$pngQuant = new PNGQuant($tempFilePath, $quality);
+				$imagecompresions = $pngQuant->compress();
+				echo $imagecompresions;
+				// $pngQuant->saveCompressedImage($this->newImageLocation);
 
-			return true;
-		} catch (Exception $exception) {
-			$this->destroy();
+				return true;
+			} catch (Exception $exception) {
+				$operationResponse = false;
+			}
+		} 
 
-			return false;
-		}
+		return $operationResponse;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 * @param $imagePath
 	 * @return If you we can save the image we return success.
 	 */
-	public function saveImageToFileSystem() {
+	public function saveImageToFileSystem($imagePath) {
 		// Try to save image to file system.
 		try {
-			$this->writeImage($this->imageWithOptimization->getFullPath());
+			$this->writeImage($imagePath);
 			$this->destroy();
 
 			return true;

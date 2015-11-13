@@ -6,8 +6,7 @@ namespace Library\Image\ImageMagick\Interfaces;
  *
  * @author dimitar.danailov@mentormate.com
  */
-interface iScissorImagick
-{
+interface iScissorImagick {
 	/**
 	 * 1) Adaptively resize image with data-dependent triangulation. Avoids blurring across sharp color changes.
 	 * Most useful when used to shrink images slightly to a slightly smaller "web size"; may not look good when a full-sized image is adaptively resized to a thumbnail.
@@ -46,4 +45,10 @@ interface iScissorImagick
 	 * @param int $quality
 	 */	
 	public function changeImageQualityForPNG($quality);
+
+	/**
+	 * Save image to file system and destroy @see Imagick object.
+	 * @param int $quality
+	 */		
+	public function saveImageToFileSystem($imagePath);
 }

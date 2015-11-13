@@ -90,7 +90,7 @@
                     container.appendChild(imageWithOptimization);
 
                 }).error(function (error, status, headers, config) {
-                    alert('Server Error');
+                    // alert('Server Error');
                 });
 	    	};
 	    	

@@ -2,9 +2,11 @@
 
 namespace Library\Image\Interfaces;
 
+use Entities\FilePath;
+
 interface iIMage {
 
-    public function getPathToImageFile();
-    public function setPathToImageFile($imagePath);
+    public function getImage();
+    public function setImage(FilePath $image);
     public static function getImageMaxSizeInBytes();
 }

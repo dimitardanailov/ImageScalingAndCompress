@@ -1,10 +1,11 @@
 <?php
 
 namespace Library\Image\Optimization\Interfaces;
+use Entities\FilePath;
 
 interface iImageOptimization {
         
         
-	public function storeCompressImage($savePath);
+	public function saveCompressedImage(FilePath $filePath);
 	public function compress();
 }

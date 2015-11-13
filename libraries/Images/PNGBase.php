@@ -1,7 +1,7 @@
 <?php
 
 namespace Library\Image;
-
+use Entities\FilePath;
 use Library\Image\Interfaces\iIMage;
 
 /**
@@ -9,12 +9,12 @@ use Library\Image\Interfaces\iIMage;
  */
 class PNGBase extends ImageBase implements iImage {
 
-	protected $pathToPngFile;
+	protected $pngFile;
 
-	public function __construct($pathToPngFile) {
-		parent::__construct($pathToPngFile);
+	public function __construct(FilePath $pngFile) {
+		parent::__construct($pngFile);
 
-		$this->pathToPngFile = $pathToPngFile;
+		$this->pngFile = $pngFile;
 	}
 }
 
