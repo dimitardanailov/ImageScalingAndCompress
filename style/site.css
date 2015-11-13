@@ -1,0 +1,353 @@
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal > dt {
+    white-space: normal;
+}
+
+/**** Display *******/
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-inline {
+    display: inline;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
+/**** END Display *****/
+
+/**** Opacity *****/
+.opacity-zero {
+    opacity: 0;
+    -ms-filter: "alpha(opacity=0)";
+    filter: alpha(opacity=0);
+}
+
+.opacity-full-visible {
+    opacity: 1;
+    -ms-filter: "alpha(opacity=100)";
+    filter: alpha(opacity=100);
+}
+/**** END Opacity *****/
+
+.hidden {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.position-fixed {
+    position: fixed;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.posision-right {
+    right: 0;
+}
+
+/********************* Text *********************/
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-center,
+.box-text {
+    text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.font-weight-normal {
+    font-weight: normal;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.hover-underline:hover {
+    text-decoration: underline;
+}
+
+.text-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.text-ellipsis,
+.text-overflow {
+    -webkit-text-overflow: ellipsis;
+     -khtml-text-overflow: ellipsis;
+      -icab-text-overflow: ellipsis;
+       -moz-text-overflow: ellipsis;
+         -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+}
+
+.outline-none {
+    outline: none;
+}
+
+
+.color-inherit {
+    color: inherit;
+}
+
+.text-link {
+    text-decoration: none;
+}
+
+    .text-link:hover {
+        text-decoration: underline;
+    }
+/********************* Text *********************/
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.white-space-nowrap {
+    white-space: nowrap;
+}
+
+/********************* Width *********************/
+.fill-parent {
+    width: 100%;
+}
+
+/********************* Width *********************/
+/********************* Cursor *********************/
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/********************* Cursor *********************/
+
+
+/********************* Outline *********************/
+textarea,
+select,
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="text"],
+input[type="url"] {
+    outline: none;
+}
+
+/********************* List *********************/
+.reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list-inline > li {
+    display: inline;
+}
+
+.list-float-left > li {
+    float: left;
+}
+
+.list-style-lower-alpha {
+    list-style: lower-alpha;
+}
+
+.list-style-upper-alpha {
+    list-style: upper-alpha;
+}
+
+/******** Fix for numeric list *****/
+.numberic-list-wrapper {
+    counter-reset: section;
+}
+
+.numberic-list-main {
+    counter-reset: subsection;
+    counter-reset: childsubsection;
+    list-style: none;
+}
+
+    .numberic-list-main > li:before {
+        counter-increment: section;
+        content: counter(section) ". ";
+    }
+
+.numberic-list-main-sublist {
+    counter-reset: childsubsection;
+    list-style: none;
+}
+
+    .numberic-list-main-sublist > li:before {
+        counter-increment: subsection;
+        content: counter(section) "." counter(subsection) ". ";
+    }
+
+.numberic-list-main-sublist-child {
+    list-style: none;
+}
+
+    .numberic-list-main-sublist-child > li:before {
+        counter-increment: childsubsection;
+        content: counter(section) "." counter(subsection) "." counter(childsubsection) ". ";
+    }
+
+.numberic-list-sublist-reset-item:before {
+    counter-reset: subsection;
+}
+/******** Fix for numeric list *****/
+
+/********************* Table *********************/
+.border-collapse {
+    border-collapse: collapse;
+}
+
+/********************* Triangle *********************/
+.arrow {
+    width: 0;
+    height: 0;
+}
+
+.middle-arrow {
+    margin: 0 auto;
+}
+/********************* Triangle *********************/
+
+/********************* Form Elements ***************/
+.form-field-content .form-field-inline-text {
+    vertical-align: top;
+    display: inline-block;
+    width: 20%;
+    margin: 0 2% 0 0;
+}
+
+.input-text-field {
+    width: 98%;
+}
+
+.input-inline {
+    display: inline-block;
+    width: 60%;
+}
+
+/************** Select ***********/
+.select-box > select {
+    cursor: pointer;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    z-index: 2;
+    position: absolute;
+    opacity: 0;
+    -ms-filter: "alpha(opacity=0)";
+    filter: alpha(opacity=0);
+    left: 0;
+    top: 0;
+}
+/************** Select ***********/
+
+/************** Submit Button ***********/
+.button-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    opacity: .1;
+    -ms-filter: "alpha(opacity=.0001)";
+    filter: Alpha(Opacity=.0001);
+    background: white;
+    background: rgba(255, 255, 255, 0);
+    font-size: 1px;
+    line-height: 999px;
+    border: none;
+    cursor: pointer;
+}
+/************** Submit Button ***********/
+/************** Radio butons && Checkboxs ***********/
+
+/************** Radio butons ***********/
+
+/********************* Form Elements ***************/
+
+/********************* Buttons *********************/
+.button-container {
+    position: relative;
+    display: block;
+}
+/************** Textarea ***********/
+.textarea-transparent {
+    background-color: transparent;
+    border: medium none;
+    outline: medium none;
+    resize: none;
+}
+
+.textarea-without-resize {
+    resize: none;
+}
+/************** Textarea ***********/
+
+.circle-button {
+    -webkit-border-radius: 100%;
+       -moz-border-radius: 100%;
+            border-radius: 100%;
+
+    cursor: pointer;
+}

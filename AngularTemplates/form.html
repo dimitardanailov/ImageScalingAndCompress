@@ -1,0 +1,57 @@
+<h2>
+	Image scaling
+</h2>
+
+<section>
+	<section>
+		<h3>Original:</h3>
+		<ul>
+			<li>Extenstion: {{ activeFileType.extension }}</li>
+			<li>Image width: {{ originalImageDetails.width }}px</li>
+			<li>Image height: {{ originalImageDetails.height }}px</li>
+		</ul>
+	</section>
+
+	<button ng-click="compressImage()">Generate a new image</button>
+
+	<fieldset>
+		<label>File type:</label>
+		<select ng-options="filetype.extension for filetype in filetypes track by filetype.type" 
+				ng-model="filetype" ng-change="setNewFileType()"></select>
+	</fieldset>
+
+	<fieldset>
+		<div>
+			<label>Quality: {{ imageQuality }}</label>
+		</div>
+		<div>
+			<input type="range" min="0" max="100" value="{{ imageQuality }}" ng-model="imageQuality"/>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<div>
+			<label>Image</label>
+		</div>
+		<div>
+			<select ng-options="image.name for image in images track by image.filename" 
+					ng-model="image" ng-change="setNewImage()"></select>
+		</div>
+
+		<!-- Grid C -->
+		<div class="wrapper-grid-c">
+			<!--- Left Cell -->
+			<div class="wrapper-block-a overflow-hidden">
+				<img ng-src="{{ originalImage.src }}" get-image-details ng-model="originalImageDetails"/>
+			</div>
+			<!--- End Left Cell -->
+			
+			<!--- Right Cell -->
+			<div id="js-dynamic-image" class="wrapper-block-b overflow-hidden"/>
+			<!--- End Right Cell -->
+		</div>
+	</fieldset>
+</section>
+
+
+
