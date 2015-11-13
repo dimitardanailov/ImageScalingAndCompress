@@ -3,6 +3,7 @@ namespace Library\Image\ImageMagick;
 
 use Imagick;
 use Exception;
+use Entities\FilePath;
 use Library\Image\ImageMagick\Interfaces\iScissorImagick;
 use Library\Image\Optimization\PNGQuant;
 
@@ -13,19 +14,20 @@ use Library\Image\Optimization\PNGQuant;
  */
 class ScissorImagick extends Imagick implements iScissorImagick {
 
-	private $imagePath;
+	private $currentImage;
 	// Information where we should to save a new image.
-	private $newImageLocation;
+	private $imageWithOptimization;
 
-	public function	__construct($imagePath, $newImageLocation) {
+	public function	__construct(FilePath $currentImage, FilePath $imageWithOptimization) {
+		$imagePath = $currentImage->getFullPath();
 		if (!file_exists($imagePath)) {
 			throw new Exception("File does not exist: $imagePath");
 		}
 
 		parent::__construct(realpath($imagePath));
 
-		$this->imagePath = $imagePath;
-		$this->newImageLocation = $newImageLocation;
+		$this->currentImage = $currentImage;
+		$this->imageWithOptimization = $imageWithOptimization;
 	}
 
 
@@ -38,7 +40,7 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 	public function adaptiveResizeImageByWidthAndHeight($width, $height, $quality = 100, $bestFit = true) {
 		$this->adaptiveResizeImage($width, $height, $bestFit);
 
-		$imageFileType = exif_imagetype($this->imagePath);
+		$imageFileType = exif_imagetype($this->currentImage->getFullPath());
 		$operationResponse = false;
 
 		switch ($imageFileType) {
@@ -105,12 +107,12 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 	}
 
 	/**
-	 * @return If you we can save the image we return true.
+	 * @return If you we can save the image we return success.
 	 */
 	public function saveImageToFileSystem() {
 		// Try to save image to file system.
 		try {
-			$this->writeImage($this->newImageLocation);
+			$this->writeImage($this->imageWithOptimization->getFullPath());
 			$this->destroy();
 
 			return true;

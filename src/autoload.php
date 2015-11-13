@@ -3,6 +3,10 @@
 // Enums
 require_once './enums/ResponseError.php';
 
+
+// entities
+require_once './entities/FilePath.php';
+
 // Libs
 require_once './libraries/Json/JsonHelper.php';
 

@@ -84,10 +84,10 @@
 	    		};
 
 	    		$http.post("compress.php", compressInformation).success(function (data, status, headers, config) {
-                    var imageWithCompression = new Image();
-                    imageWithCompression.src = data.newImageLocation;
+                    var imageWithOptimization = new Image();
+                    imageWithOptimization.src = data.imageWithOptimization.path + data.imageWithOptimization.name;
 
-                    container.appendChild(imageWithCompression);
+                    container.appendChild(imageWithOptimization);
 
                 }).error(function (error, status, headers, config) {
                     alert('Server Error');

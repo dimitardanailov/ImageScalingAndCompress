@@ -1,7 +1,9 @@
 <?php
 namespace MVC\Controller;
 
+use \stdClass;
 use Enums\Enum as Enum;
+use Entities\FilePath;
 use \Library\JSON\JsonHelper;
 use Library\Image\ImageMagick\ScissorImagick;
 
@@ -11,7 +13,8 @@ class ImageController {
 
 	const WIDTH = 800;
 	const HEIGHT = 600;
-	const NewImageLocationFolderName = 'images/compress/';
+	const ImageLocationOfCurrentImages = 'images/';
+	const ImageLocationForNewImages = 'images/compress/';
 
 	public function __construct() {
 		$this->jsonHelper = new JsonHelper();
@@ -24,19 +27,29 @@ class ImageController {
 
 		if ($requestIsValid) {
 
-			// Generate path to the image.
+			// Delete prImageLocationOfCurrentImages = 'images/';
+			array_map('unlink', glob(ImageController::ImageLocationForNewImages . '*'));
+
+			// Generate image name
 			$imageName = $jsonData->image . $jsonData->filetype->extension;
-			$imagePath = 'images/' . $jsonData->filetype->type . '/' . $imageName;
+			
+			// Current(Original) Image
+			$imagePath = ImageController::ImageLocationOfCurrentImages . $jsonData->filetype->type . '/';
+			$currentImage = new FilePath($imagePath, $imageName);
+			
+			// Image optimization
+			$tempName = uniqid() . $imageName;
+			$imageWithOptimization = new FilePath(ImageController::ImageLocationForNewImages, $tempName);
 
-			// Delete previous files
-			array_map('unlink', glob(ImageController::NewImageLocationFolderName . '*'));
-			$newImageLocation = ImageController::NewImageLocationFolderName . uniqid() . $imageName;
-
-			$scissorImagick = new ScissorImagick($imagePath, $newImageLocation);
+			$scissorImagick = new ScissorImagick($currentImage, $imageWithOptimization);
 			$operationResponse = $scissorImagick->adaptiveResizeImageByWidthAndHeight(ImageController::WIDTH, ImageController::HEIGHT, $jsonData->quality);
 
 			if ($operationResponse) {
-				$this->jsonHelper->responseJsonMessageByKeyAndValues('newImageLocation', $newImageLocation);
+				$response = new stdClass();
+				$response->path = $imageWithOptimization->getPath();
+				$response->name = $imageWithOptimization->getFileName();
+
+				$this->jsonHelper->responseJsonMessageByKeyAndValues('imageWithOptimization', $response);
 			} else {
 				$this->jsonHelper->responseDefaultError();
 			}
