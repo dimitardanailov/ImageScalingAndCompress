@@ -22,6 +22,7 @@ class FileSystemImagick extends Imagick implements iFileSystemImagick {
 		}
 
 		parent::__construct(realpath($imagePath));
+		$this->currentImage = $currentImage;
 	}
 
 	/**

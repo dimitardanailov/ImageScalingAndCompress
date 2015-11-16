@@ -33,8 +33,15 @@
 	     */
 	    .controller('HomeCtrl', ['$scope', '$http', '$resource', function ($scope, $http, $resource) {
 
+	    	// Compression containers
+	    	var compressionContainers = [
+	    		{ 'htmlId': 'js-container-statistics-currentImage', 'jsonKey': 'currentImageDetails' },
+	    		{ 'htmlId': 'js-container-statistics-imageWithOptimization', 'jsonKey': 'imageWithOptimizationDetails' }
+	    	];
+
 	    	var container = document.getElementById('js-dynamic-image');
-	    	$scope.originalImageDetails = {'width': 0, 'height': 0};
+
+	    	$scope.originalImageDetails = {'width': 0, 'height': 0 };
 
 	    	$scope.originalImage = new Image();
 
@@ -80,10 +87,24 @@
 	    		};
 
 	    		$http.post("compress.php", compressInformation).success(function (data, status, headers, config) {
-                    var imageWithOptimization = new Image();
-                    imageWithOptimization.src = data.imageWithOptimization.path + data.imageWithOptimization.name;
 
-                    container.appendChild(imageWithOptimization);
+	    			if (data.hasOwnProperty('response')) {
+	    				var compressionContainer, 
+	    					statisticModule = null, 
+	    					backendInformation;
+
+	    				// Iterate json information.
+		    			for (var i=0; i < compressionContainers.length; i++) {
+		    				compressionContainer = compressionContainers[i];
+		    				backendInformation = data.response[compressionContainer.jsonKey];
+		    				statisticModule = new ImageCompressionStatistics(compressionContainer.htmlId, backendInformation);
+		    				// statisticModule.initialize();
+		    			}
+	    			}
+                    // var imageWithOptimization = new Image();
+                    // imageWithOptimization.src = data.imageWithOptimization.path + data.imageWithOptimization.name;
+
+                    // container.appendChild(imageWithOptimization);
 
                 }).error(function (error, status, headers, config) {
                     // alert('Server Error');
@@ -94,6 +115,7 @@
 
 
 	    configuration.$inject = ['$routeProvider', '$locationProvider'];
+	    
 		/**
 	    * @ngdoc overview
 	    * @name Angularjs::routes configuration
@@ -113,7 +135,7 @@
 
 	        // use the HTML5 History API
 	        // $locationProvider.html5Mode(true);
-	    }
+	    };
 
 	    Image.prototype.updateLocation = function($scope) {
 	    	this.src = 'images/' + $scope.activeFileType.type + '/' + $scope.activeImage.filename + $scope.activeFileType.extension;

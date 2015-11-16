@@ -6,8 +6,8 @@ namespace Entities;
  * @author dimitar.danailov@mentormate.com
  */
 class FilePath {
-	private $path;
-	private $filename;
+	public $path;
+	public $filename;
 
 	public function	__construct($path, $filename) {
 		$this->path = $path;

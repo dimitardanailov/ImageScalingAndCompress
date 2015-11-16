@@ -50,11 +50,6 @@ class ImageController {
 				$response->currentImageDetails = $this->getImageDetailsByFilePath($currentImage);
 				$response->imageWithOptimizationDetails = $this->getImageDetailsByFilePath($imageWithOptimization);
 
-				// $fileInfo = new stdClass();
-				// $fileInfo->path = $imageWithOptimization->getPath();
-				// $fileInfo->name = $imageWithOptimization->getFileName();
-
-
 				$this->jsonHelper->responseJsonMessageByKeyAndValues('response', $response);
 				
 			} else {
