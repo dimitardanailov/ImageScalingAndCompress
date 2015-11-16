@@ -10,20 +10,15 @@
 				restrict: 'A',
 		    	link: function(scope, element, attrs) {
 		    		element.bind('load', function() {
-		    			/*
-		    			scope[attrs.ngModel] = {
-		    				'width': this.width,
-		    				'height': this.height
-		    			};
-
-		    			if (typeof FileReader !== "undefined") {
-		    				console.log(FileReader);
-		    			}
-
-		    			// var size = document.getElementById('myfile').files[0].size;
-		    			console.log(document.getElementById('myfile').files);
-		    			console.log(scope[attrs.ngModel]['height']);
-		    			*/
+		    			
+		    			// http://stackoverflow.com/questions/9682092/angularjs-how-does-databinding-work/9693933#9693933
+		    			var _this = this;
+		    			scope.$apply(function() {
+			    			scope[attrs.ngModel] = {
+			    				'width': _this.width,
+			    				'height': _this.height
+			    			};
+		    			});
 		    		});
         		}
    			}
@@ -39,6 +34,7 @@
 	    .controller('HomeCtrl', ['$scope', '$http', '$resource', function ($scope, $http, $resource) {
 
 	    	var container = document.getElementById('js-dynamic-image');
+	    	$scope.originalImageDetails = {'width': 0, 'height': 0};
 
 	    	$scope.originalImage = new Image();
 

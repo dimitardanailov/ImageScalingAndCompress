@@ -6,6 +6,7 @@ use Enums\Enum as Enum;
 use Entities\FilePath;
 use \Library\JSON\JsonHelper;
 use Library\Image\ImageMagick\ScissorImagick;
+use Library\Image\ImageMagick\FileSystemImagick;
 
 class ImageController {
 
@@ -46,16 +47,29 @@ class ImageController {
 
 			if ($operationResponse) {
 				$response = new stdClass();
-				$response->path = $imageWithOptimization->getPath();
-				$response->name = $imageWithOptimization->getFileName();
+				$response->currentImageDetails = $this->getImageDetailsByFilePath($currentImage);
+				$response->imageWithOptimizationDetails = $this->getImageDetailsByFilePath($imageWithOptimization);
 
-				$this->jsonHelper->responseJsonMessageByKeyAndValues('imageWithOptimization', $response);
+				// $fileInfo = new stdClass();
+				// $fileInfo->path = $imageWithOptimization->getPath();
+				// $fileInfo->name = $imageWithOptimization->getFileName();
+
+
+				$this->jsonHelper->responseJsonMessageByKeyAndValues('response', $response);
+				
 			} else {
 				$this->jsonHelper->responseDefaultError();
 			}
 		} else {
 			$this->jsonHelper->responseDefaultError();
 		}
+	}
+
+	private function getImageDetailsByFilePath(FilePath $filePath) {
+		$fileSystemImagick = new FileSystemImagick($filePath);
+		$imageFileInfo  = $fileSystemImagick->getImageFileDetails();
+
+		return $imageFileInfo;
 	}
 }
 

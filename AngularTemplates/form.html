@@ -3,15 +3,6 @@
 </h2>
 
 <section>
-	<section>
-		<h3>Original:</h3>
-		<ul>
-			<li>Extenstion: {{ activeFileType.extension }}</li>
-			<li>Image width: {{ originalImageDetails.width }}px</li>
-			<li>Image height: {{ originalImageDetails.height }}px</li>
-		</ul>
-	</section>
-
 	<button ng-click="compressImage()">Generate a new image</button>
 
 	<fieldset>
@@ -42,6 +33,15 @@
 		<div class="wrapper-grid-c">
 			<!--- Left Cell -->
 			<div class="wrapper-block-a overflow-hidden">
+				<section>
+					<h3>Original:</h3>
+					<ul>
+						<li>Extenstion: {{ activeFileType.extension }}</li>
+						<li>Image width: {{ originalImageDetails.width }}px</li>
+						<li>Image height: {{ originalImageDetails.height }}px</li>
+					</ul>
+				</section>
+				
 				<img ng-src="{{ originalImage.src }}" get-image-details ng-model="originalImageDetails"/>
 			</div>
 			<!--- End Left Cell -->
