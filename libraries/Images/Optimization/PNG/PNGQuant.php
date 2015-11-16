@@ -10,10 +10,12 @@ use Library\Image\Optimization\Interfaces\iImageOptimization;
 
 /**
  * @author dimitar.danailov@mentormate.com
- * Source: https://pngquant.org/php.html
+ * @link: https://pngquant.org/php.html
  */
 class PNGQuant extends PNGBase implements iImageOptimization {
-        
+
+	const EXECUTION_FILE_LOCATION = '/usr/local/bin/pngquant';
+
 	private $minQuantity;
 	private $maxQuality;
 	private $quality;
@@ -53,25 +55,23 @@ class PNGQuant extends PNGBase implements iImageOptimization {
 	}
 	/*** $quality ***/ 
 
-	/**
-	 * We try to save image in file system.
-	 * {@inheritDoc}
-	 * @see \Library\Image\Optimization\Interfaces\iImageOptimization::saveCompressedImage()
-	 */
-	public function saveCompressedImage(FilePath $filePath) {
-		echo 'here';
-		exit();
-
+	public function saveCompressedImage(FilePath $imageWithOptimization) {
 		$compressedPngContent = $this->compress();
+		$operationResponse = false;
 
-		try {
-			file_put_contents($filePath->getFullPath(), $compressedPngContent);
-			unset($compressedPngContent);
-		} catch(RuntimeException $runTimeException) {
-			echo '{RuntimeException} We can\'t save image' . $runTimeException->getMessage();
-		} catch (Exception $exception) {
-			echo '{Exception} We can\' save image' . $exception->getMessage();
-		}
+		if (!empty($compressedPngContent)) {
+			try {
+				file_put_contents($imageWithOptimization->getFullPath(), $compressedPngContent);
+				$operationResponse = true;
+			} catch(RuntimeException $runTimeException) {
+				echo '{RuntimeException} We can\'t save image' . $runTimeException->getMessage();
+			} catch (Exception $exception) {
+				echo '{Exception} We can\' save image' . $exception->getMessage();
+			}
+
+		} 
+
+		return $operationResponse;
 	}
 
 	/**
@@ -84,7 +84,8 @@ class PNGQuant extends PNGBase implements iImageOptimization {
 		// '-' makes it use stdout, required to save to $compressedPngContent variable
 		// '<' makes it read from the given file path
 		// escapeshellarg() makes this safe to use with any path
-		$compressedPngContent = shell_exec("pngquant");
+		$command = PNGQuant::EXECUTION_FILE_LOCATION . ' --quality=' . $this->quality . ' - < '. escapeshellarg($this->pngFile->getFullPath());
+		$compressedPngContent = shell_exec($command);
 
 		if (empty($compressedPngContent)) {
 			throw new Exception("Conversion to compressed PNG failed. Is pngquant 1.8+ installed on the server?");

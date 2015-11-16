@@ -100,11 +100,8 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 			// Try to optimize png
 			try {
 				$pngQuant = new PNGQuant($tempFilePath, $quality);
-				$imagecompresions = $pngQuant->compress();
-				echo $imagecompresions;
-				// $pngQuant->saveCompressedImage($this->newImageLocation);
-
-				return true;
+				$operationResponse = $pngQuant->saveCompressedImage($this->imageWithOptimization);
+				// $imagecompresions = $pngQuant->compress();
 			} catch (Exception $exception) {
 				$operationResponse = false;
 			}
