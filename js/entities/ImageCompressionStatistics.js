@@ -6,8 +6,11 @@
  * @param {string} imageCompressionStatistics - Information from Backend.
  */
 var ImageCompressionStatistics = function(parentElementId, imageCompressionStatistics) {
+	// Constants
+	this.labelsClassName = ''
+	this.valuesClassName = '';
+
 	this.parentElement = document.getElementById(parentElementId);
-	console.log(this.parentElement);
 
 	if (document.body.contains(this.parentElement)) {
 		this.imageCompressionStatistics = imageCompressionStatistics;
@@ -48,8 +51,8 @@ ImageCompressionStatistics.prototype.initialize = function() {
  */
 ImageCompressionStatistics.prototype.createImageSizeInformation =  function() {
 	var listItemImageSize = document.createElement('li');
-	this.generateListItemChild(listItemImageSize, 'File size in kilobytes:');
-	this.generateListItemChild(listItemImageSize, this.imageCompressionStatistics.fileSize['kilobytes'])
+	this.generateListItemChild(listItemImageSize, 'File size in kilobytes:', this.labelsClassName);
+	this.generateListItemChild(listItemImageSize, this.imageCompressionStatistics.fileSize['kilobytes'], this.valuesClassName)
 
     this.list.appendChild(listItemImageSize);
 };
@@ -59,14 +62,19 @@ ImageCompressionStatistics.prototype.createImageSizeInformation =  function() {
  */
 ImageCompressionStatistics.prototype.createImageDimensionsInformation = function() {
 	var dimensionsKeys = [
-		{ 'key': 'width', 'labelName': 'Width' }, 
-		{ 'key': 'height', 'labelName': 'Height' }
+		{ 'keyName': 'width', 'labelName': 'Width:' }, 
+		{ 'keyName': 'height', 'labelName': 'Height:' }
 	];
 
-	var listItemDimensionProperty = null, _this = this;
+	var listItemDimensionProperty = null, _this = this,  value;
 	dimensionsKeys.forEach(function(dimensionsKey) {
 		listItemDimensionProperty = document.createElement('li');
-		_this.generateListItemChild(listItemDimensionProperty, dimensionsKey.labelName);
+		// Label
+		_this.generateListItemChild(listItemDimensionProperty, dimensionsKey.labelName, _this.labelsClassName);
+		
+		// Value
+		var value = _this.imageCompressionStatistics.dimensions[dimensionsKey.keyName];
+		_this.generateListItemChild(listItemDimensionProperty, value, _this.valuesClassName);
 		
 		_this.list.appendChild(listItemDimensionProperty);
 	});
@@ -76,11 +84,14 @@ ImageCompressionStatistics.prototype.createImageDimensionsInformation = function
  * Create a list item child (label or value).
  *
  * @param {object} parentElement - Access to parent list item element.
- * @param {string} labelInnerHTML - Text message of span element.
+ * @param {string} innerHTML - Text message of span element.
+ * @param {string} className
  */
-ImageCompressionStatistics.prototype.generateListItemChild = function(parentElement, labelInnerHTML) {
+ImageCompressionStatistics.prototype.generateListItemChild = function(parentElement, innerHTML, className) {
 	// Label
 	var label = document.createElement('span');
-	label.innerHTML = labelInnerHTML;
+	label.innerHTML = innerHTML;
+	label.setAttribute('class', className);
+
     parentElement.appendChild(label);
 };
