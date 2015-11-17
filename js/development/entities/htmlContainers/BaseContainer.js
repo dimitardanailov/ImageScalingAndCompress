@@ -26,4 +26,10 @@ class BaseContainer {
 
 	    parentElement.appendChild(label);
 	};
+
+	removeParentNodeChildren() {
+		while (this.parentElement.firstChild) {
+			this.parentElement.removeChild(this.parentElement.firstChild);
+		}
+	}
 };

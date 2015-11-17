@@ -1,10 +1,11 @@
 class ImageCompressionStatistics extends BaseContainer {
+
 	/**
  	 * Represents a information for image (filesize, dimensions and etc.).
  	 *
  	 * @constructor
  	 * @param {string} parentElementId - Access to parent element.
- 	 * @param {string} imageCompressionStatistics - Information from Backend.
+ 	 * @param {object} imageCompressionStatistics - Information from Backend.
  	 */
     constructor(parentElementId, imageCompressionStatistics) {
         super(parentElementId);
@@ -22,6 +23,8 @@ class ImageCompressionStatistics extends BaseContainer {
  	* Create all elements and append these elements to parent node.
  	*/
 	initialize() {
+		this.removeParentNodeChildren();
+
 		// Main Node
 		this.list = document.createElement('ul');
 
@@ -34,11 +37,6 @@ class ImageCompressionStatistics extends BaseContainer {
 
 		// Dimensions Information
 		this.createImageDimensionsInformation();
-
-		// Remove childs
-		while (this.parentElement.firstChild) {
-			this.parentElement.removeChild(this.parentElement.firstChild);
-		}
 
 		this.parentElement.appendChild(this.list);
 	}
@@ -77,5 +75,10 @@ class ImageCompressionStatistics extends BaseContainer {
 			
 			this.list.appendChild(listItemDimensionProperty);
 		});
+	}
+
+	static createAndInitialize(parentElementId, imageCompressionStatistics) {
+		const reference = new ImageCompressionStatistics(parentElementId, imageCompressionStatistics);
+		reference.initialize();
 	}
 }

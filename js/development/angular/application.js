@@ -84,17 +84,15 @@
 
 	    				imageStatisticsContainers.forEach(function(imageStatisticsContainer) {
 	    					backendInformation = data.response[imageStatisticsContainer.jsonKey];
-	    					statisticModule = new ImageCompressionStatistics(imageStatisticsContainer.id, backendInformation);
+	    					ImageCompressionStatistics.createAndInitialize(imageStatisticsContainer.id, backendInformation);
 
 	    					if (imageStatisticsContainer.jsonKey === BACKEND_KEYS.imageWithOptimizationKey) {
-	    						console.log(backendInformation);
+	    						if (backendInformation.hasOwnProperty('filePath')) {
+	    							ImageCompressionContainer.createAndInitialize(imageStatisticsContainer.id, backendInformation.filePath);
+	    						}
 	    					}
 	    				});
 	    			}
-                    // var imageWithOptimization = new Image();
-                    // imageWithOptimization.src = data.imageWithOptimization.path + data.imageWithOptimization.name;
-
-                    // container.appendChild(imageWithOptimization);
 
                 }).error(function (error, status, headers, config) {
                     // alert('Server Error');
