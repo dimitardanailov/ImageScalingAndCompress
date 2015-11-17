@@ -10,6 +10,7 @@ use Entities\FilePath;
  */
 class ImageFileInfo {
 
+	public $filePath;
 	public $dimensions = array('width' => 0, 'height' => 0);
 	public $fileSize = array('bytes' => 0, 'kilobytes' => 0, 'megabytes' => 0);
 
