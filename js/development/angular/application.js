@@ -74,7 +74,7 @@
 	    		};
 
 	    		$http.post("compress.php", compressInformation).success(function (data, status, headers, config) {
-
+	    			
 	    			if (data.hasOwnProperty('response')) {
 	    				var imageStatisticsContainers = generateImageStatisticsConstants();
 	    				var BACKEND_KEYS = generateBackendCompressionAccessibleKeys();
