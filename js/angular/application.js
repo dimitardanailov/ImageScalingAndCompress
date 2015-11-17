@@ -33,15 +33,7 @@
 	     */
 	    .controller('HomeCtrl', ['$scope', '$http', '$resource', function ($scope, $http, $resource) {
 
-	    	// Compression containers
-	    	var compressionContainers = [
-	    		{ 'htmlId': 'js-container-statistics-currentImage', 'jsonKey': 'currentImageDetails' },
-	    		{ 'htmlId': 'js-container-statistics-imageWithOptimization', 'jsonKey': 'imageWithOptimizationDetails' }
-	    	];
-
-	    	var container = document.getElementById('js-dynamic-image');
-
-	    	$scope.originalImageDetails = {'width': 0, 'height': 0 };
+	    	// $scope.originalImageDetails = {'width': 0, 'height': 0 };
 
 	    	$scope.originalImage = new Image();
 
@@ -75,11 +67,6 @@
 	    	$scope.imageQuality = 100;
 
 	    	$scope.compressImage = function() {
-	    		// Remove childs
-    			while (container.firstChild) {
-					container.removeChild(container.firstChild);
-				}
-
 	    		var compressInformation = {
 	    			'quality': $scope.imageQuality,
 	    			'image': $scope.activeImage.filename,
@@ -89,17 +76,20 @@
 	    		$http.post("compress.php", compressInformation).success(function (data, status, headers, config) {
 
 	    			if (data.hasOwnProperty('response')) {
-	    				var compressionContainer, 
-	    					statisticModule = null, 
+	    				var imageStatisticsContainers = generateImageStatisticsConstants();
+	    				var BACKEND_KEYS = generateBackendCompressionAccessibleKeys();
+
+	    				var statisticModule = null, 
 	    					backendInformation;
 
-	    				// Iterate json information.
-		    			for (var i=0; i < compressionContainers.length; i++) {
-		    				compressionContainer = compressionContainers[i];
-		    				backendInformation = data.response[compressionContainer.jsonKey];
-		    				statisticModule = new ImageCompressionStatistics(compressionContainer.htmlId, backendInformation);
-		    				// statisticModule.initialize();
-		    			}
+	    				imageStatisticsContainers.forEach(function(imageStatisticsContainer) {
+	    					backendInformation = data.response[imageStatisticsContainer.jsonKey];
+	    					statisticModule = new ImageCompressionStatistics(imageStatisticsContainer.id, backendInformation);
+
+	    					if (imageStatisticsContainer.jsonKey === BACKEND_KEYS.imageWithOptimizationKey) {
+	    						console.log(backendInformation);
+	    					}
+	    				});
 	    			}
                     // var imageWithOptimization = new Image();
                     // imageWithOptimization.src = data.imageWithOptimization.path + data.imageWithOptimization.name;
@@ -135,6 +125,32 @@
 
 	        // use the HTML5 History API
 	        // $locationProvider.html5Mode(true);
+	    };
+
+	    /**
+		 * Every constant contains information for:
+		 * - attribute id (We use this information to generate containers).
+		 * - which back end record should to prepare for operations
+		 */
+	    function generateImageStatisticsConstants() {
+	    	var BACKEND_KEYS = generateBackendCompressionAccessibleKeys();
+
+	    	// Image info containers
+	    	var imageStatisticsContainers = [
+	    		{ 'id': 'js-container-statistics-currentImage', 'jsonKey': BACKEND_KEYS.currentImageKey },
+	    		{ 'id': 'js-container-statistics-imageWithOptimization', 'jsonKey': BACKEND_KEYS.imageWithOptimizationKey }
+	    	];
+
+	    	return imageStatisticsContainers;
+	    };
+
+	    function generateBackendCompressionAccessibleKeys() {
+	    	var BACKEND_KEYS = {
+	    		'currentImageKey': 'currentImageDetails',
+	    		'imageWithOptimizationKey': 'imageWithOptimizationDetails'
+	    	};
+
+	    	return BACKEND_KEYS;
 	    };
 
 	    Image.prototype.updateLocation = function($scope) {
