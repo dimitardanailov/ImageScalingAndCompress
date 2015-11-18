@@ -1,3 +1,5 @@
+'use strict';
+
 const configurations = {
 	'folderStructure' : {
 		'baseDevelopment': './js/development',
@@ -9,7 +11,20 @@ const configurations = {
 configurations.folderStructure['entities'] = {
 	'base': `${configurations.folderStructure.baseDevelopment}/entities`
 };
-configurations.folderStructure.entities['htmlContainers'] = `${configurations.folderStructure.entities.base}/htmlContainers`;
+
+const entitiesFolders = [
+	// HTML Containers
+	// We need these structure to create a custom html wrappers
+	'htmlContainers',
+
+	// Javascript
+	// We extend current Javascript structures
+	'javascript'
+];
+
+entitiesFolders.forEach((key) => {
+	configurations.folderStructure.entities[key] = `${configurations.folderStructure.entities.base}/${key}`;
+});
 
 // Concatenation
 configurations.concatenationLocations = {

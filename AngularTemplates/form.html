@@ -12,6 +12,27 @@
 	</fieldset>
 
 	<fieldset>
+		<label class="bold" for="width">Width:</label>
+		<input type="number" 
+			   ng-value="{{ scaleOptions.dimensions.width }}" 
+			   max="{{ originalImageDetails.width }}" 
+			   ng-model="scaleOptions.dimensions.width"/>
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="height">Height:</label>
+		<input type="number" 
+			   ng-value="{{ scaleOptions.dimensions.height }}" 
+			   max="{{ originalImageDetails.height }}" 
+			   ng-model="scaleOptions.dimensions.height"/>
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="proportionally">Scale proportionally</label>
+		<input type="checkbox" ng-model="scaleOptions.proportionally" id="proportionally" />
+	</fieldset>
+
+	<fieldset>
 		<label class="bold" for="quality">Quality:</label>
 		<input type="range" min="0" max="100" value="{{ imageQuality }}" ng-model="imageQuality" id="quality"/>
 		<span class="display-block">
@@ -37,9 +58,9 @@
 			<!--- Left Cell -->
 			<section class="wrapper-block-a overflow-hidden">
 				<section id="js-container-statistics-currentImage"></section>
-				
+
 				<div class="image-preview-frame">
-					<img ng-src="{{ originalImage.src }}" ng-model="originalImageDetails"/>
+					<img ng-src="{{ originalImage.src }}" get-image-details ng-model="originalImageDetails"/>
 				</div>
 			</section>
 			<!--- End Left Cell -->

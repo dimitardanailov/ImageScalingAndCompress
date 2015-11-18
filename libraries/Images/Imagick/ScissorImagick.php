@@ -39,21 +39,26 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 	 * @return If you we can save the image we return true.
 	 */
 	public function adaptiveResizeImageByWidthAndHeight($width, $height, $quality = 100, $bestFit = true) {
-		$this->adaptiveResizeImage($width, $height, $bestFit);
-
-		$imageFileType = exif_imagetype($this->currentImage->getFullPath());
 		$operationResponse = false;
+		
+		// Protect from injections.
+		if ($width > 0 && $height > 0 && $quality > 0 && is_bool($bestFit)) {
+			$this->adaptiveResizeImage($width, $height, $bestFit);
 
-		switch ($imageFileType) {
-			case IMAGETYPE_JPEG:
-				$operationResponse = $this->changeImageQualityForJpeg($quality);
-				break;
-			case IMAGETYPE_PNG:
-				$operationResponse = $this->changeImageQualityForPNG($quality);
-				break;
-			default:
-				throw new Exception("Image format is not supported.");
-				break;
+			$imageFileType = exif_imagetype($this->currentImage->getFullPath());
+
+
+			switch ($imageFileType) {
+				case IMAGETYPE_JPEG:
+					$operationResponse = $this->changeImageQualityForJpeg($quality);
+					break;
+				case IMAGETYPE_PNG:
+					$operationResponse = $this->changeImageQualityForPNG($quality);
+					break;
+				default:
+					throw new Exception("Image format is not supported.");
+					break;
+			}
 		}
 
 		return $operationResponse;

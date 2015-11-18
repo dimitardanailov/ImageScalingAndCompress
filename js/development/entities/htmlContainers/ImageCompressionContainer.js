@@ -19,8 +19,7 @@ class ImageCompressionContainer extends BaseContainer {
  	*/
 	initialize() {
 		// Main Wrapper
-		this.mainWrapper = document.createElement('div');
-		this.mainWrapper.setAttribute('class', this.imageFrameClassName);
+		this.mainWrapper = document.createElement('section');
 
 		this.createImage();
 		this.parentElement.appendChild(this.mainWrapper);
@@ -33,7 +32,11 @@ class ImageCompressionContainer extends BaseContainer {
 		const imageWithOptimization = new Image();
 		imageWithOptimization.src = this.imageCompressionStatistics.path + this.imageCompressionStatistics.filename;
 
-		this.mainWrapper.appendChild(imageWithOptimization);
+		this.imageFrameWrapper = document.createElement('div');
+		this.imageFrameWrapper.setAttribute('class', this.imageFrameClassName);
+		this.imageFrameWrapper.appendChild(imageWithOptimization);
+
+		this.mainWrapper.appendChild(this.imageFrameWrapper);
 	}
 
 	static createAndInitialize(parentElementId, imageCompressionStatistics) {

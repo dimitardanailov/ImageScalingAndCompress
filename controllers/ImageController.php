@@ -12,8 +12,6 @@ class ImageController {
 
 	private $jsonHelper;
 
-	const WIDTH = 800;
-	const HEIGHT = 600;
 	const ImageLocationOfCurrentImages = 'images/';
 	const ImageLocationForNewImages = 'images/compress/';
 
@@ -24,7 +22,13 @@ class ImageController {
 	public function compressImage() {
 		
 		$jsonData = $this->jsonHelper->jsonInputReader();
-		$requestIsValid = isset($jsonData->quality) && isset($jsonData->image) && isset($jsonData->filetype);
+
+		$dimensionsAreCorrect = isset($jsonData->dimensions) 
+			&& (property_exists($jsonData->dimensions, 'width') && property_exists($jsonData->dimensions, 'height'))
+			&& (is_numeric($jsonData->dimensions->width) && is_numeric($jsonData->dimensions->height));
+		$bestFitIsCorrect = isset($jsonData->bestFit) && is_bool($jsonData->bestFit);
+		$requestIsValid = isset($jsonData->quality) && isset($jsonData->image) && isset($jsonData->filetype) 
+			&& $dimensionsAreCorrect && $bestFitIsCorrect;
 
 		if ($requestIsValid) {
 
@@ -43,7 +47,11 @@ class ImageController {
 			$imageWithOptimization = new FilePath(ImageController::ImageLocationForNewImages, $tempName);
 
 			$scissorImagick = new ScissorImagick($currentImage, $imageWithOptimization);
-			$operationResponse = $scissorImagick->adaptiveResizeImageByWidthAndHeight(ImageController::WIDTH, ImageController::HEIGHT, $jsonData->quality);
+			$imageWidth = $jsonData->dimensions->width;
+			$imageHeight = $jsonData->dimensions->height;
+			// Note: We need to turn best fit, because ratio can be floating point.
+			$jsonData->bestFit = false;
+			$operationResponse = $scissorImagick->adaptiveResizeImageByWidthAndHeight($imageWidth, $imageHeight, $jsonData->quality, $jsonData->bestFit);
 
 			if ($operationResponse) {
 				$response = new stdClass();

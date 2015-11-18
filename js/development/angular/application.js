@@ -10,7 +10,7 @@
 				restrict: 'A',
 		    	link: function(scope, element, attrs) {
 		    		element.bind('load', function() {
-		    			
+		    				
 		    			// http://stackoverflow.com/questions/9682092/angularjs-how-does-databinding-work/9693933#9693933
 		    			var _this = this;
 		    			scope.$apply(function() {
@@ -33,9 +33,51 @@
 	     */
 	    .controller('HomeCtrl', ['$scope', '$http', '$resource', function ($scope, $http, $resource) {
 
-	    	// $scope.originalImageDetails = {'width': 0, 'height': 0 };
+	    	$scope.originalImageDetails = {'width': 0, 'height': 0 };
 
-	    	$scope.originalImage = new Image();
+	    	$scope.scaleOptions = { 
+	    		'dimensions' : { 
+	    			'width': 0, 
+	    			'height': 0
+	    		}, 
+	    		'proportionally' : true 
+	    	};
+
+	    	// Scope Watch
+	    	var scope = $scope;
+	    	var scaleOptionsKeys = ['width', 'height'];
+	    	scaleOptionsKeys.forEach(function(scaleOptionsKey) {
+	    		$scope.$watch('originalImageDetails.' + scaleOptionsKey, function() {
+	    			scope.scaleOptions.dimensions[scaleOptionsKey] = this.last;
+
+	    			// Update ratio information
+	    			scope.scaleOptions.dimensions.ratio = scope.originalImageDetails.width / scope.originalImageDetails.height;
+	    		});
+	    	});
+
+	    	
+	    	$scope.$watch('scaleOptions.dimensions.width', function() {
+	    		if (scope.scaleOptions.proportionally) {
+		    		if (scope.scaleOptions.dimensions.width > 0 && scope.scaleOptions.dimensions.hasOwnProperty('ratio')) {
+		    			var tempVariable = Math.floor((this.last / scope.scaleOptions.dimensions.ratio));
+		    			if (tempVariable > 0) {
+		    				scope.scaleOptions.dimensions.height = tempVariable;
+		    			}
+		    		}
+	    		}	
+	    	});
+
+	    	$scope.$watch('scaleOptions.dimensions.height', function() {
+	    		if (scope.scaleOptions.proportionally) {
+		    		if (scope.scaleOptions.dimensions.height > 0 && scope.scaleOptions.dimensions.hasOwnProperty('ratio')) {
+		    			var tempVariable = (this.last * scope.scaleOptions.dimensions.ratio);
+		    			tempVariable = Math.round(tempVariable);
+		    			if (tempVariable > 0) {
+		    				scope.scaleOptions.dimensions.width = tempVariable;
+		    			}
+		    		}
+	    		}	
+	    	});
 
 	    	// File types
 	    	$scope.filetypes = [
@@ -43,6 +85,9 @@
 	    		{ 'type': 'jpg', 'extension': '.jpg' }
 	    	];
 	    	$scope.activeFileType = $scope.filetypes.first();
+	    	
+	    	$scope.originalImage = new Image();
+
 	    	$scope.setNewFileType = function() {
 	    		$scope.activeFileType = $scope.filetype;
 	    		$scope.originalImage.updateLocation($scope);
@@ -70,7 +115,9 @@
 	    		var compressInformation = {
 	    			'quality': $scope.imageQuality,
 	    			'image': $scope.activeImage.filename,
-	    			'filetype': $scope.activeFileType
+	    			'filetype': $scope.activeFileType,
+	    			'dimensions': $scope.scaleOptions.dimensions,
+	    			'bestFit': $scope.scaleOptions.proportionally
 	    		};
 
 	    		$http.post("compress.php", compressInformation).success(function (data, status, headers, config) {
@@ -95,7 +142,7 @@
 	    			}
 
                 }).error(function (error, status, headers, config) {
-                    // alert('Server Error');
+                	alert('Server Error');
                 });
 	    	};
 	    	
