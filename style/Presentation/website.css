@@ -1,0 +1,36 @@
+/** Base Properties **/
+fieldset {
+	border: none;
+}
+/** Base Properties **/
+
+/*** Form elements ***/
+.form-submit-button {
+	cursor: pointer;
+}
+/*** Form elements ***/
+
+.quality-wrapper {
+	color: #ff0000;
+	border: .1em solid #ccc;
+
+	background-color: #fff;
+
+	text-align: center;
+}
+
+.image-preview-frame {
+	border: 1px solid #CCCCCC;
+	background: #fff url('../assets/grid-transparency.png') repeat;
+}
+
+/*** .image-compression-statistics ***/
+.image-compression-statistics-list {
+
+}
+
+.image-compression-statistics-list-item-value {
+	color: FF9500;
+}
+
+/*** .image-compression-statistics ***/

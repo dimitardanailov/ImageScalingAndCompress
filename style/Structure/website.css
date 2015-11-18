@@ -1,0 +1,52 @@
+/*** Base Properties ***/
+
+fieldset {
+	position: relative;
+
+	display: block;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+/*** Base Properties ***/
+
+/*** Form elements ***/
+
+.form-submit-button {
+	position: relative;
+
+	display: inline-block;
+	padding: .5em .6em;
+}
+/*** Form elements ***/
+
+.quality-wrapper {
+	position: relative;
+
+	display: block;
+	padding: .2em 1em;
+	width: 3.5em;
+}
+
+.image-preview-frame {
+	position: relative;
+
+	display: inline-block;
+}
+
+/*** .image-compression-statistics ***/
+.image-compression-statistics-list {
+	position: relative;
+
+	display: inline-block;
+	padding: .5em;
+}
+
+.image-compression-statistics-list-item-value {
+	position: relative;
+
+	display: inline;
+	margin-left: .2em;
+}
+
+/*** .image-compression-statistics ***/

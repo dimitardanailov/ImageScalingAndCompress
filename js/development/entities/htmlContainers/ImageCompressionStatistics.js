@@ -11,8 +11,9 @@ class ImageCompressionStatistics extends BaseContainer {
         super(parentElementId);
 
         // Constants
+        this.listClassName = 'image-compression-statistics-list reset-list';
 		this.labelsClassName = '';
-		this.valuesClassName = '';
+		this.valuesClassName = 'image-compression-statistics-list-item-value';
 
 		this.imageCompressionStatistics = imageCompressionStatistics;
 
@@ -27,6 +28,7 @@ class ImageCompressionStatistics extends BaseContainer {
 
 		// Main Node
 		this.list = document.createElement('ul');
+		this.list.setAttribute('class', this.listClassName);
 
 		// Filesize Node
 		if (this.imageCompressionStatistics.hasOwnProperty('fileSize')) {

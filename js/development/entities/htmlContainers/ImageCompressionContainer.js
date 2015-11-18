@@ -10,6 +10,8 @@ class ImageCompressionContainer extends BaseContainer {
         super(parentElementId);
 
         this.imageCompressionStatistics = imageCompressionStatistics;
+
+        this.imageFrameClassName = 'image-preview-frame';
     }
 
     /**
@@ -17,7 +19,9 @@ class ImageCompressionContainer extends BaseContainer {
  	*/
 	initialize() {
 		// Main Wrapper
-		this.mainWrapper = document.createElement('section');
+		this.mainWrapper = document.createElement('div');
+		this.mainWrapper.setAttribute('class', this.imageFrameClassName);
+
 		this.createImage();
 		this.parentElement.appendChild(this.mainWrapper);
 	}

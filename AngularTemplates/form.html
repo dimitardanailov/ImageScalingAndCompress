@@ -3,39 +3,44 @@
 </h2>
 
 <section>
-	<button ng-click="compressImage()">Generate a new image</button>
-
 	<fieldset>
-		<label>File type:</label>
-		<select ng-options="filetype.extension for filetype in filetypes track by filetype.type" 
+		<label class="bold" for="filetype">Choose file type:</label>
+		<select id="filetype"
+				ng-init="filetype = filetypes[0]"
+				ng-options="filetype.extension for filetype in filetypes track by filetype.type" 
 				ng-model="filetype" ng-change="setNewFileType()"></select>
 	</fieldset>
 
 	<fieldset>
-		<div>
-			<label>Quality: {{ imageQuality }}</label>
-		</div>
-		<div>
-			<input type="range" min="0" max="100" value="{{ imageQuality }}" ng-model="imageQuality"/>
-		</div>
+		<label class="bold" for="quality">Quality:</label>
+		<input type="range" min="0" max="100" value="{{ imageQuality }}" ng-model="imageQuality" id="quality"/>
+		<span class="display-block">
+			<span class="quality-wrapper bold">{{ imageQuality }}</span> 
+		</span>
 	</fieldset>
 
 	<fieldset>
-		<div>
-			<label>Image</label>
-		</div>
-		<div>
-			<select ng-options="image.name for image in images track by image.filename" 
-					ng-model="image" ng-change="setNewImage()"></select>
-		</div>
+		<label class="bold" for="image">Choose image</label>
+		<select id="image"
+				ng-init="image = images[0]"
+				ng-options="image.name for image in images track by image.filename" 
+				ng-model="image" ng-change="setNewImage()"></select>
+	</fieldset>
 
+	<fieldset>
+		<span ng-click="compressImage()" class="form-submit-button button-type-light-silver">Generate a new image</span>
+	</fieldset>
+	
+	<section>
 		<!-- Grid C -->
 		<section class="wrapper-grid-c">
 			<!--- Left Cell -->
 			<section class="wrapper-block-a overflow-hidden">
 				<section id="js-container-statistics-currentImage"></section>
 				
-				<img ng-src="{{ originalImage.src }}" ng-model="originalImageDetails"/>
+				<div class="image-preview-frame">
+					<img ng-src="{{ originalImage.src }}" ng-model="originalImageDetails"/>
+				</div>
 			</section>
 			<!--- End Left Cell -->
 			
@@ -45,7 +50,7 @@
 			</section>
 			<!--- End Right Cell -->
 		</section>
-	</fieldset>
+	</section>
 </section>
 
 
