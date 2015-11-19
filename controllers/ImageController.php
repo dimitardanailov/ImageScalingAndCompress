@@ -27,8 +27,10 @@ class ImageController {
 			&& (property_exists($jsonData->dimensions, 'width') && property_exists($jsonData->dimensions, 'height'))
 			&& (is_numeric($jsonData->dimensions->width) && is_numeric($jsonData->dimensions->height));
 		$bestFitIsCorrect = isset($jsonData->bestFit) && is_bool($jsonData->bestFit);
+		$interlaceSchemeIsCorrect = isset($jsonData->interlaceSchemeIsEnable) && is_bool($jsonData->interlaceSchemeIsEnable);
+
 		$requestIsValid = isset($jsonData->quality) && isset($jsonData->image) && isset($jsonData->filetype) 
-			&& $dimensionsAreCorrect && $bestFitIsCorrect;
+			&& $dimensionsAreCorrect && $bestFitIsCorrect && $interlaceSchemeIsCorrect;
 
 		if ($requestIsValid) {
 
@@ -49,9 +51,17 @@ class ImageController {
 			$scissorImagick = new ScissorImagick($currentImage, $imageWithOptimization);
 			$imageWidth = $jsonData->dimensions->width;
 			$imageHeight = $jsonData->dimensions->height;
+			
 			// Note: We need to turn best fit, because ratio can be floating point.
 			$jsonData->bestFit = false;
-			$operationResponse = $scissorImagick->adaptiveResizeImageByWidthAndHeight($imageWidth, $imageHeight, $jsonData->quality, $jsonData->bestFit);
+
+			$operationResponse = $scissorImagick->adaptiveResizeImageByWidthAndHeight(
+				$imageWidth, 
+				$imageHeight, 
+				$jsonData->quality, 
+				$jsonData->bestFit,
+				$jsonData->interlaceSchemeIsEnable
+			);
 
 			if ($operationResponse) {
 				$response = new stdClass();

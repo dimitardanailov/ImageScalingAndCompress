@@ -37,6 +37,11 @@
 	</fieldset>
 
 	<fieldset>
+		<label class="bold" for="progressive_image_rendering">Progressive Image Rendering</label>
+		<input type="checkbox" ng-model="scaleOptions.progressiveImageRendering" id="progressive_image_rendering" />
+	</fieldset>
+
+	<fieldset>
 		<label class="bold" for="quality">Quality:</label>
 		<input type="range" min="0" max="100" value="{{ imageQuality }}" ng-model="imageQuality" id="quality"/>
 		<span class="display-block">

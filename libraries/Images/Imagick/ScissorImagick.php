@@ -38,22 +38,31 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 	 * @see \Library\Image\ImageMagick\Interfaces\iImageMagick::adaptiveResizeImageByWidthAndHeight()
 	 * @return If you we can save the image we return true.
 	 */
-	public function adaptiveResizeImageByWidthAndHeight($width, $height, $quality = 100, $bestFit = true) {
+	public function adaptiveResizeImageByWidthAndHeight($width, $height, $quality = 100, $bestFit = true, $interlaceSchemeIsEnable = false) {
 		$operationResponse = false;
 		
 		// Protect from injections.
 		if ($width > 0 && $height > 0 && $quality > 0 && is_bool($bestFit)) {
 			$this->adaptiveResizeImage($width, $height, $bestFit);
 
+			// Image file type
 			$imageFileType = exif_imagetype($this->currentImage->getFullPath());
-
 
 			switch ($imageFileType) {
 				case IMAGETYPE_JPEG:
+					if ($interlaceSchemeIsEnable) {
+						$this->setInterlaceScheme(Imagick::INTERLACE_JPEG);
+					}
+
 					$operationResponse = $this->changeImageQualityForJpeg($quality);
 					break;
 				case IMAGETYPE_PNG:
 					$operationResponse = $this->changeImageQualityForPNG($quality);
+
+					if ($operationResponse && $interlaceSchemeIsEnable) {
+						$operationResponse = $this->addProgressiveRenderingForPNG();
+					}
+
 					break;
 				default:
 					throw new Exception("Image format is not supported.");
@@ -106,12 +115,24 @@ class ScissorImagick extends Imagick implements iScissorImagick {
 			try {
 				$pngQuant = new PNGQuant($tempFilePath, $quality);
 				$operationResponse = $pngQuant->saveCompressedImage($this->imageWithOptimization);
-				// $imagecompresions = $pngQuant->compress();
 			} catch (Exception $exception) {
 				$operationResponse = false;
 			}
 		} 
 
+		return $operationResponse;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function addProgressiveRenderingForPNG() {
+		$instance = new ScissorImagick($this->imageWithOptimization, $this->imageWithOptimization);
+		$instance->setInterlaceScheme(Imagick::INTERLACE_PNG);
+
+		$imagePath = $instance->imageWithOptimization->getFullPath();
+		$operationResponse = $instance->saveImageToFileSystem($imagePath);
+		
 		return $operationResponse;
 	}
 

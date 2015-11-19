@@ -161,7 +161,8 @@
 		    			'width': 0, 
 		    			'height': 0
 		    		}, 
-		    		'proportionally' : true 
+		    		'proportionally' : true,
+		    		'progressiveImageRendering': false
 	    		};
 		    }
 
@@ -192,7 +193,8 @@
 	    			'image': scope.activeImage.filename,
 	    			'filetype': scope.activeFileType,
 	    			'dimensions': scope.scaleOptions.dimensions,
-	    			'bestFit': scope.scaleOptions.proportionally
+	    			'bestFit': scope.scaleOptions.proportionally,
+	    			'interlaceSchemeIsEnable': scope.scaleOptions.progressiveImageRendering
 	    		};
 		    }
 

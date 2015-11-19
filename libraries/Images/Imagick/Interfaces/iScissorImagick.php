@@ -15,14 +15,18 @@ interface iScissorImagick {
 	 * Option 1) Jpeg: Please @see ScissorImagick::changeImageQualityForJPEG
 	 * Option 2) Png: Please @see ScissorImagick::changeImageQualityForPNG
 	 * 
+	 * Note we can enable progressive download for image.
+	 * Image has progressive rendering if you interlaceSchemeIsEnable is equal to true.
+	 *
 	 * @param $width
 	 * @param $height
 	 * @param $quality
 	 * @param $bestFit
 	 *
 	 * @link http://phpimagick.com/Imagick/adaptiveResizeImage
+	 * @link http://blog.codinghorror.com/progressive-image-rendering/
 	 */
-	public function adaptiveResizeImageByWidthAndHeight($width, $height, $quality = 100, $bestFit = true);
+	public function adaptiveResizeImageByWidthAndHeight($width, $height, $quality = 100, $bestFit = true, $interlaceSchemeIsEnable = false);
 
 	/**
 	 * Scale image by width and height
@@ -45,6 +49,13 @@ interface iScissorImagick {
 	 * @param int $quality
 	 */	
 	public function changeImageQualityForPNG($quality);
+
+	/**
+	 * Add progressive image rendering.
+	 * We added this layer, after @see Library\Image\Optimization\PNGQuant
+	 * @param int $quality
+	 */	
+	public function addProgressiveRenderingForPNG();
 
 	/**
 	 * Save image to file system and destroy @see Imagick object.
