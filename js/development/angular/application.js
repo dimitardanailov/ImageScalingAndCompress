@@ -26,9 +26,9 @@
 			return {
 				restrict: 'A',
 				link: function(scope, element, attrs) {
-		    		element.bind('blur', function(event) {
-				      console.log('blur');
-    				});
+		    		element.bind('focus', function(event) {
+				      	WatchHelper.addWatcherForScaleOptionDimension(scope, attrs.dimensionKey);
+					});
         		}
 			}
 		})
@@ -60,9 +60,18 @@
 
 	    	// Scope Watch
 	    	WatchHelper.addWatcherForOriginalImageDetails($scope);
-	    	WatchHelper.addWatcherForScaleOptionDimension($scope, 'width');
-	    	WatchHelper.addWatcherForScaleOptionDimension($scope, 'height');
 	    	
+	    	/*
+	    	 * When you call the $watch() method, AngularJS
+             * returns an unbind function that will kill the
+             * $watch() listener when its called.
+             * Source: http://www.bennadel.com/blog/2480-unbinding-watch-listeners-in-angularjs.htm
+             */
+	    	$scope.unbindWatcherScaleOptionDimension = {
+	    		'watcherEvent': null,
+	    		'key': null
+	    	};
+
 	    	// Scope Click Events
 	    	$scope.setNewFileType = () => {
 	    		$scope.activeFileType = $scope.filetype;
@@ -254,7 +263,16 @@
 	    			mathematicalOperation = 'multiplication';
 	    		}
 
-	    		scope.$watch(`scaleOptions.dimensions.${scaleOptionDimensionKey}`, function() {
+	    		if (scope.unbindWatcherScaleOptionDimension.watcherEvent != null && 
+	    			scope.unbindWatcherScaleOptionDimension.key != scaleOptionDimensionKey) {
+
+	    			// We need to kill previous watcher event.
+	    			scope.unbindWatcherScaleOptionDimension.watcherEvent();
+	    		}
+
+	    		scope.unbindWatcherScaleOptionDimension.key = scaleOptionDimensionKey;
+
+	    		scope.unbindWatcherScaleOptionDimension.watcherEvent = scope.$watch(`scaleOptions.dimensions.${scaleOptionDimensionKey}`, function() {
 	    			const propertiesAreCorrect = scope.scaleOptions.proportionally 
 	    				&& this.last > 0 
 	    				&& scope.scaleOptions.dimensions.hasOwnProperty('ratio');
