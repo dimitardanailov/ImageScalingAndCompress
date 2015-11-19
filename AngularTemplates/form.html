@@ -22,6 +22,7 @@
 	<fieldset>
 		<label class="bold" for="height">Height:</label>
 		<input type="number" 
+			   change-image-dimension
 			   ng-value="{{ scaleOptions.dimensions.height }}" 
 			   max="{{ originalImageDetails.height }}" 
 			   ng-model="scaleOptions.dimensions.height"/>

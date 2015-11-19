@@ -22,6 +22,17 @@
    			}
 		})
 
+		.directive('changeImageDimension', function() {
+			return {
+				restrict: 'A',
+				link: function(scope, element, attrs) {
+		    		element.bind('blur', function(event) {
+				      console.log('blur');
+    				});
+        		}
+			}
+		})
+
 		/**
 	     * @ngdoc overview
 	     * @name ImageScalingAndCompress:controller:TwitterBackupCtrl
@@ -49,30 +60,8 @@
 
 	    	// Scope Watch
 	    	WatchHelper.addWatcherForOriginalImageDetails($scope);
-	    	
-	    	const scope = $scope;
-	    	$scope.$watch('scaleOptions.dimensions.width', function() {
-	    		if (scope.scaleOptions.proportionally) {
-		    		if (scope.scaleOptions.dimensions.width > 0 && scope.scaleOptions.dimensions.hasOwnProperty('ratio')) {
-		    			var tempVariable = Math.floor((this.last / scope.scaleOptions.dimensions.ratio));
-		    			if (tempVariable > 0) {
-		    				scope.scaleOptions.dimensions.height = tempVariable;
-		    			}
-		    		}
-	    		}	
-	    	});
-
-	    	$scope.$watch('scaleOptions.dimensions.height', function() {
-	    		if (scope.scaleOptions.proportionally) {
-		    		if (scope.scaleOptions.dimensions.height > 0 && scope.scaleOptions.dimensions.hasOwnProperty('ratio')) {
-		    			var tempVariable = (this.last * scope.scaleOptions.dimensions.ratio);
-		    			tempVariable = Math.round(tempVariable);
-		    			if (tempVariable > 0) {
-		    				scope.scaleOptions.dimensions.width = tempVariable;
-		    			}
-		    		}
-	    		}	
-	    	});
+	    	WatchHelper.addWatcherForScaleOptionDimension($scope, 'width');
+	    	WatchHelper.addWatcherForScaleOptionDimension($scope, 'height');
 	    	
 	    	// Scope Click Events
 	    	$scope.setNewFileType = () => {
@@ -247,6 +236,42 @@
 		    				scope.scaleOptions.dimensions.ratio = scope.originalImageDetails.width / scope.originalImageDetails.height;
 		    			}
 		    		});
+	    		});
+	    	}
+
+	    	/**
+	    	 * Add watcher:
+	    	 * We added a watcher, when want to change width or height of image.
+	    	 * If you scope.scaleOptions.proportionally is turn on we need to update another dimension value.
+	    	 */
+	    	static addWatcherForScaleOptionDimension(scope, scaleOptionDimensionKey) {
+	    		let scaleOptionDimensionUpdateKey, mathematicalOperation;
+	    		if (scaleOptionDimensionKey === 'width') {
+	    			scaleOptionDimensionUpdateKey = 'height';
+	    			mathematicalOperation = 'division';
+	    		} else {
+	    			scaleOptionDimensionUpdateKey = 'width';
+	    			mathematicalOperation = 'multiplication';
+	    		}
+
+	    		scope.$watch(`scaleOptions.dimensions.${scaleOptionDimensionKey}`, function() {
+	    			const propertiesAreCorrect = scope.scaleOptions.proportionally 
+	    				&& this.last > 0 
+	    				&& scope.scaleOptions.dimensions.hasOwnProperty('ratio');
+
+		    		if (propertiesAreCorrect) {
+			    		let tempVariable;
+		    			switch (mathematicalOperation) {
+		    				case 'division':
+		    					tempVariable = Math.floor((this.last / scope.scaleOptions.dimensions.ratio));
+		    					break;
+		    				case 'multiplication':
+		    					tempVariable = Math.floor((this.last * scope.scaleOptions.dimensions.ratio));
+		    					break;
+		    			}
+
+		    			if (tempVariable > 0) scope.scaleOptions.dimensions[scaleOptionDimensionUpdateKey] = tempVariable;
+		    		}	
 	    		});
 	    	}
 	    }
