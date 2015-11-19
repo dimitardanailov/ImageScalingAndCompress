@@ -7,6 +7,11 @@ const configurations = {
 	}
 };
 
+// Angularjs
+configurations.folderStructure['angular'] = {
+	'base': `${configurations.folderStructure.baseDevelopment}/angular` 
+};
+
 // Entties
 configurations.folderStructure['entities'] = {
 	'base': `${configurations.folderStructure.baseDevelopment}/entities`
@@ -34,7 +39,8 @@ configurations.concatenationLocations = {
 		'projects': 'project.min.js'
 	}, 
 	'temp' : {
-		'entities': 'entities.min.js'
+		'entities': 'entities.min.js',
+		'angular': 'angular.min.js'
 	}
 };
 

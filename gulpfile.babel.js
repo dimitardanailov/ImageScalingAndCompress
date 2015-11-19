@@ -35,25 +35,30 @@ import gulpErrorHandling from './gulp-error-handling'
 import js from './gulp-configurations/javascript.js'
 
 gulp.task('babel:entities', () => {
-	return streamqueue
+	const streamqueueFiles = streamqueue
 		(
 			{ objectMode: true },
 			gulp.src(js.configuration.folderStructure.entities.htmlContainers + '/BaseContainer.js'),
 			gulp.src(js.configuration.folderStructure.entities.htmlContainers + '/ImageCompressionContainer.js'),
 			gulp.src(js.configuration.folderStructure.entities.htmlContainers + '/ImageCompressionStatistics.js')
-		)
-		.pipe(babel())
-		.pipe(wrap('//<%= file.path %>\n<%= contents %>'))
-		// We will use .min prefix, because we want do not have problems with html include.
-		.pipe(concat(js.configuration.concatenationLocations.temp.entities))
-		.pipe(gulp.dest(js.configuration.folderStructure.baseProduction))
-		.on('error', gulpErrorHandling.onWarning);
+		);
+
+	return GulpHelper.transformFilesToEcmaScriptSixAndConcat(streamqueueFiles, js.configuration.concatenationLocations.temp.entities);
+});
+
+gulp.task('babel:angularjs', () => {
+	const streamqueueFiles = streamqueue
+		(
+			{ objectMode: true },
+			gulp.src(js.configuration.folderStructure.angular.base + '/application.js')
+		);
+	return GulpHelper.transformFilesToEcmaScriptSixAndConcat(streamqueueFiles, js.configuration.concatenationLocations.temp.angular);
 });
 
 /**
  * Task will contact all javascript project files.
  */
-gulp.task('concat:javascript-project-files', ['babel:entities'], () => {
+gulp.task('concat:javascript-project-files', ['babel:entities', 'babel:angularjs'], () => {
 	return gulp.src(js.configuration.folderStructure.baseProduction + '/*.js')
 		.pipe(order(js.configuration.tempFiles, { base: './' }))
 		// We will use .min prefix, because we want do not have problems with html include.
@@ -150,3 +155,24 @@ gulp.task('imagemin:build', () => {
 
 // Default Task
 gulp.task('default', ['concat']);
+
+class GulpHelper {
+
+	/**
+	 * Method receive pipe with files (streamqueueFiles). 
+	 * Babel create pipe: In this pipe we store transformation from EcmaScript 2015 to EcmaScript 5.
+	 * Final step of concatenation these files.
+	 *
+	 * @param {object} streamqueueFiles
+	 * @param {string} fileConcatenationName 
+	 */
+	static transformFilesToEcmaScriptSixAndConcat(streamqueueFiles, fileConcatenationName) {
+		return streamqueueFiles
+			.pipe(babel())
+			.pipe(wrap('//<%= file.path %>\n<%= contents %>'))
+			// We will use .min prefix, because we want do not have problems with html include.
+			.pipe(concat(fileConcatenationName))
+			.pipe(gulp.dest(js.configuration.folderStructure.baseProduction))
+			.on('error', gulpErrorHandling.onWarning);
+	}
+}
