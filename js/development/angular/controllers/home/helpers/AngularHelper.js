@@ -1,4 +1,4 @@
-class AngularHelper {
+export class AngularHelper {
 	/**
 	 * Generate information for backend compression.
 	 */
@@ -43,5 +43,3 @@ class AngularHelper {
 		}
 	}
 }
-
-export default AngularHelper;

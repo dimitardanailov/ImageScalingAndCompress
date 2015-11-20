@@ -1,8 +1,6 @@
 (function () {
 
-	angular
-		.module('ImageScalingAndCompress', ['ngResource', 'ngRoute', 'ngFileUpload'])
-
+		/*
 		.directive('getImageDetails', function () { 
 			return {
 				restrict: 'A',
@@ -31,6 +29,12 @@
 					});
         		}
 			}
-		})
-
+		}) */
 })();
+
+const moduleName = 'ImageScalingAndCompress';
+
+angular
+	.module(moduleName, ['ngResource', 'ngRoute', 'ngFileUpload']);
+
+export default moduleName;

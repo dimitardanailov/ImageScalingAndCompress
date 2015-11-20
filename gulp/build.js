@@ -50,16 +50,19 @@ gulp.task('babel:angularjs', () => {
 			{ objectMode: true },
 			gulp.src(js.configuration.folderStructure.angular.base + '/app.module.js'),
 
+			// Routes
+			gulp.src(js.configuration.folderStructure.angular.base + '/configurations/Configuration.js'),
 			gulp.src(js.configuration.folderStructure.angular.base + '/app.routes.js'),
 
 			// Home Controller - Helpers
-			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/AngularConstants.js'),
-			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/AngularHelper.js'),
-			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/FileUploadHelper.js'),
-			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/WatchHelper.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/helpers/AngularConstants.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/helpers/AngularHelper.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/helpers/FileUploadHelper.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/helpers/WatchHelper.js'),
 
 			// Home Controller
-			gulp.src(js.configuration.folderStructure.angular.base + '/home/HomeController.js')
+			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/index.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/HomeController.js')
 		);
 	return GulpHelper.transformFilesToEcmaScriptSixAndConcat(streamqueueFiles, js.configuration.concatenationLocations.temp.angular);
 });

@@ -1,29 +1,9 @@
-import AngularConstants from './helpers/AngularConstants';
-import AngularHelper from './helpers/AngularHelper';
-import FileUploadHelper from './helpers/FileUploadHelper';
-import WatchHelper from './helpers/WatchHelper';
+import AngularConstants from 'AngularConstants';
+import AngularHelper from 'AngularHelper';
+import FileUploadHelper from 'FileUploadHelper';
+import WatchHelper from 'WatchHelper';
 
-(function () {
-
-	angular
-		.module("ImageScalingAndCompress")
-		.controller("HomeCtrl", HomeController.create());
-
-	Image.prototype.updateLocation = function(scope) {
-		this.src = `images/${scope.activeFileType.type}/${scope.activeImage.filename}${scope.activeFileType.extension}`;
-	};
-
-	Array.prototype.first = function() {
-		if (this.length > 0) {
-			return this[0];
-		}
-	};
-
-})();
-
-class HomeController {
-	const $inject = ['$scope', '$http', '$resource', '$timeout', 'Upload'];
-
+export class HomeController {
 	constructor ($scope, $http, $resource, $timeout, Upload) {
 
 		// Initialize
@@ -80,8 +60,8 @@ class HomeController {
             });
     	};
 	}
-
-	static create() {
-		return HomeController();
-	}
 }
+
+HomeController.$inject = ['$scope', '$http', '$resource', '$timeout', 'Upload'];
+
+export default HomeController;

@@ -1,4 +1,4 @@
-class WatchHelper {
+export class WatchHelper {
 	/**
 	 * Add watcher: 
 	 * When image is loaded we update $scope.originalImageDetails details. 
@@ -64,5 +64,3 @@ class WatchHelper {
 		});
 	}
 }
-
-export default WatchHelper;
