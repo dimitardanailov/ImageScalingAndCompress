@@ -1,27 +1,25 @@
-Upload on form submit or button click
-<form ng-app="fileUpload" ng-controller="MyCtrl" name="form">
-  Single Image with validations
-  <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-    accept="image/*" ngf-max-size="20MB" ngf-min-height="100" 
-    ngf-resize="{width: 100, height: 100}">Select</div>
-  Multiple files
-  <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
-  Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>
-  <button type="submit" ng-click="submit()">submit</button>
-</form>
+<h2>Ng file upload</h2>
 
-Upload right away after file selection:
-<div class="button" ngf-select="upload($file)">Upload on file select</div>
-<div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on file select</div>
-  Drop File:
-<div ngf-drop="uploadFiles($files)" class="drop-box"
-  ngf-drag-over-class="'dragover'" ngf-multiple="true" 
-  ngf-pattern="'image/*,application/pdf'">Drop Images or PDFs files here</div>
-<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-
-Image thumbnail: <img ngf-thumbnail="file || '/thumb.jpg'">
-Audio preview: <audio controls ngf-src="file"></audio>
-Video preview: <video controls ngf-src="file"></video>
+<section
+	  class="drop-box" 
+	  accept="image/png,image/jpeg"
+	  ngf-select="" 
+	  ngf-drop="" 
+	  ng-model="fileUpload.files" 
+	  ngf-model-invalid="fileUpload.invalidFiles" 
+	  ng-model-options="fileUploadOptions.modelOptionsObj" 
+	  ngf-multiple="multiple" 
+	  ngf-pattern="image/png,image/jpeg" 
+	  ng-disabled="disabled" 
+	  ngf-capture="capture" 
+	  ngf-drag-over-class="dragOverClassObj" 
+	  ngf-validate="validateObj" 
+	  ngf-keep="keepDistinct ? 'distinct' : keep" 
+	  ngf-allow-dir="allowDir"
+	  ngf-drop-available="dropAvailable">
+	 Select File, 
+	 <span ng-show="dropAvailable" class="">Drop File or Paste/Drop Image</span>
+</section>
 
 <hr/>
 

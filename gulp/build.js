@@ -48,9 +48,36 @@ gulp.task('babel:angularjs', () => {
 	const streamqueueFiles = streamqueue
 		(
 			{ objectMode: true },
-			gulp.src(js.configuration.folderStructure.angular.base + '/application.js')
+			gulp.src(js.configuration.folderStructure.angular.base + '/app.module.js'),
+
+			gulp.src(js.configuration.folderStructure.angular.base + '/app.routes.js'),
+
+			// Home Controller - Helpers
+			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/AngularConstants.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/AngularHelper.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/FileUploadHelper.js'),
+			gulp.src(js.configuration.folderStructure.angular.base + '/home/helpers/WatchHelper.js'),
+
+			// Home Controller
+			gulp.src(js.configuration.folderStructure.angular.base + '/home/HomeController.js')
 		);
 	return GulpHelper.transformFilesToEcmaScriptSixAndConcat(streamqueueFiles, js.configuration.concatenationLocations.temp.angular);
+});
+
+gulp.task('concat:javascript-libraries', function() {
+	return streamqueue
+		(
+			{ objectMode: true },
+
+			// ng - file - upload
+			gulp.src('./node_modules/ng-file-upload/dist/ng-file-upload-shim.js'),
+			gulp.src('./node_modules/ng-file-upload/dist/ng-file-upload.js')
+	)
+	.pipe(wrap('//<%= file.path %>\n<%= contents %>'))
+	// We will use .min prefix, because we want do not have problems with html include.
+	.pipe(concat(js.configuration.concatenationLocations.base.libraries))
+	.pipe(gulp.dest(js.configuration.folderStructure.baseProduction))
+	.on('error', gulpErrorHandling.onWarning);
 });
 
 /**

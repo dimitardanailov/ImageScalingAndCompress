@@ -50,3 +50,13 @@ fieldset {
 }
 
 /*** .image-compression-statistics ***/
+
+
+/*** Ng file upload ***/
+.drop-box {
+	position: relative;
+
+	display: inline-block;
+    padding: 120px;
+}
+/*** Ng file upload ***/

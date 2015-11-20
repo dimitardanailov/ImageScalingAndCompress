@@ -34,3 +34,12 @@ fieldset {
 }
 
 /*** .image-compression-statistics ***/
+
+/*** Ng file upload ***/
+.drop-box {
+	background: #f8f8f8;
+    border: .5em dashed #ddd;
+    
+    text-align: center;
+}
+/*** Ng file upload ***/
