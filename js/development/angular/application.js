@@ -1,6 +1,6 @@
 (function () {
 
-	angular.module('ImageScalingAndCompress', ['ngResource', 'ngRoute'])
+	angular.module('ImageScalingAndCompress', ['ngResource', 'ngRoute', 'ngFileUpload'])
 		.config(configuration)
 
 		.directive('getImageDetails', function () { 
@@ -40,7 +40,7 @@
 	     * 
 	     * Main controller of the application.
 	     */
-	    .controller('HomeCtrl', ['$scope', '$http', '$resource', function ($scope, $http, $resource) {
+	    .controller('HomeCtrl', ['$scope', '$http', '$resource', 'Upload', function ($scope, $http, $resource, Upload) {
 
 	    	// Initialize
 	    	$scope.originalImageDetails = { 'width': 0, 'height': 0 };
@@ -92,6 +92,9 @@
                 	alert('Server Error');
                 });
 	    	};
+
+	    	// ng-file-upload
+
 	    	
 	    }]); // End HomeCtrl
 
