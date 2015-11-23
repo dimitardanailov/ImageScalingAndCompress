@@ -24,4 +24,4 @@ require_once './libraries/Images/Interfaces/iImage.php';
 require_once './libraries/Images/ImageBase.php';
 require_once './libraries/Images/PNGBase.php';
 require_once './libraries/Images/Optimization/Interfaces/iImageOptimization.php';
-require_once './libraries/Images/Optimization/PNG/PngQuant.php';
+require_once './libraries/Images/Optimization/PNG/PNGQuant.php';
