@@ -25,6 +25,7 @@ import del from 'del';
 // Minification
 import uglify from 'gulp-uglify';
 import minifyCss from 'gulp-minify-css';
+import sourcemaps from 'gulp-sourcemaps';
 
 // Custom Modules
 import gulpErrorHandling from './custom-modules/gulp-error-handling'
@@ -151,6 +152,41 @@ gulp.task('concat', (callback) => {
 		'concat:clean-temp-javascript-files',
 		callback
 	);
+});
+
+/**
+ * Minify application styling file.
+ * This task will be used only in production.
+ */
+gulp.task('minify:styles', function() {
+});
+
+
+/**
+ * Minify application javascript file.
+ * This task will be used only in production.
+ */
+gulp.task('minify:javascript', function() {
+	const locationOfMainFile = js.configuration.folderStructure.baseProduction + '/' + js.configuration.concatenationLocations.mainfile;
+
+    return gulp.src(locationOfMainFile)
+    	.pipe(sourcemaps.init())
+        	.pipe(uglify())
+        .pipe(sourcemaps.write('/', {addComment: false}))
+        .pipe(gulp.dest(js.configuration.folderStructure.baseProduction))
+		.on('error', gulpErrorHandling.onWarning);
+});
+
+/**
+  * This will run in this order:
+  * 1) concat
+  * 2) minify:javascript and minify:styles - in parallel
+  * 3) Finally call the callback function
+  */
+gulp.task('minify', function(callback) {
+	runSequence('concat',
+				['minify:javascript', 'minify:styles'],
+				callback);
 });
 
 class GulpHelper {
