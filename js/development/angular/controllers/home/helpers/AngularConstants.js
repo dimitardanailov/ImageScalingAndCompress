@@ -1,4 +1,4 @@
-export class AngularConstants {
+class AngularConstants {
 	/**
 	 * Every constant contains information for:
 	 * - attribute id (We use this information to generate containers).
@@ -50,3 +50,5 @@ export class AngularConstants {
 		];	
     }
 }
+
+export default AngularConstants;

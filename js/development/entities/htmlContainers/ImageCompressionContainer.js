@@ -1,3 +1,5 @@
+import BaseContainer from './BaseContainer';
+
 class ImageCompressionContainer extends BaseContainer {
 	/**
 	 * Visualizes container who contains: compression image.
@@ -45,3 +47,4 @@ class ImageCompressionContainer extends BaseContainer {
 	}
 }
 
+export default ImageCompressionContainer;

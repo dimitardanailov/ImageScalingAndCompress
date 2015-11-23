@@ -22,10 +22,16 @@ import runSequence from 'run-sequence';
 // Cleaning filesystem
 import del from 'del';
 
-// Minification
+// Minification Javascript and Browserify
+import browserify from 'browserify';
 import uglify from 'gulp-uglify';
-import minifyCss from 'gulp-minify-css';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
 import sourcemaps from 'gulp-sourcemaps';
+import babelify from 'babelify';
+
+// Minification CSS
+import minifyCss from 'gulp-minify-css';
 
 // Custom Modules
 import gulpErrorHandling from './custom-modules/gulp-error-handling'
@@ -65,6 +71,7 @@ gulp.task('babel:angularjs', () => {
 			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/index.js'),
 			gulp.src(js.configuration.folderStructure.angular.base + '/controllers/home/HomeController.js')
 		);
+
 	return GulpHelper.transformFilesToEcmaScriptSixAndConcat(streamqueueFiles, js.configuration.concatenationLocations.temp.angular);
 });
 
@@ -114,6 +121,30 @@ gulp.task('concat:javascript', ['concat:javascript-project-files'], () => {
 });
 
 /**
+ * Browserify has become an important and indispensable tool but requires being wrapped before working well with gulp. 
+ * Below is a simple recipe for using Browserify with transforms.
+ * See also: the Combining Streams to Handle Errors recipe for handling errors with browserify or uglify in your stream.
+ * 
+ * Source: https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-transforms.md
+ */
+gulp.task('browserify-transform', () => {
+	
+  	// set up the browserify instance on a task basis
+	const b = browserify({
+    	entries: `${js.configuration.folderStructure.baseDevelopment}/entry.js` ,
+    	debug: true,
+    	// defining transforms here will avoid crashing your stream
+    	transform: [babelify]
+  	});
+
+	return b.bundle()
+	    .pipe(source('browserify.js'))
+	    .pipe(buffer())
+	    .pipe(gulp.dest(js.configuration.folderStructure.baseProduction));
+
+});
+
+/**
  * Task will delete application production files.
  */
 gulp.task('contact:clear-main-files', () => {
@@ -143,12 +174,14 @@ gulp.task('concat:styling');
   * 1) contact:clear-main-files - Will prepare production directory
   * 2) concat:styling and concat:javascript - in parallel
   * 3) concat:clean-temp-javascript-files
-  * 4) Finally call the callback function
+  * 4) browserify-transform
+  * 5) Finally call the callback function
   */
 gulp.task('concat', (callback) => {
 	runSequence(
 		'contact:clear-main-files',
 		['concat:styling', 'concat:javascript'],
+		'browserify-transform',
 		'concat:clean-temp-javascript-files',
 		callback
 	);
@@ -167,12 +200,12 @@ gulp.task('minify:styles', function() {
  * This task will be used only in production.
  */
 gulp.task('minify:javascript', function() {
-	const locationOfMainFile = js.configuration.folderStructure.baseProduction + '/' + js.configuration.concatenationLocations.mainfile;
+	const locationOfApplicationFile = js.configuration.folderStructure.baseProduction + '/' + js.configuration.concatenationLocations.mainfile;
 
-    return gulp.src(locationOfMainFile)
+    return gulp.src(locationOfApplicationFile)
     	.pipe(sourcemaps.init())
         	.pipe(uglify())
-        .pipe(sourcemaps.write('/', {addComment: false}))
+        .pipe(sourcemaps.write('/', { addComment: false }))
         .pipe(gulp.dest(js.configuration.folderStructure.baseProduction))
 		.on('error', gulpErrorHandling.onWarning);
 });

@@ -1,4 +1,4 @@
-export class FileUploadHelper {
+class FileUploadHelper {
 	static generateFileUploadOptions() {
     	const fileUploadOptions = {};
 
@@ -11,3 +11,5 @@ export class FileUploadHelper {
     	return fileUploadOptions;
     }
 } 
+
+export default FileUploadHelper;

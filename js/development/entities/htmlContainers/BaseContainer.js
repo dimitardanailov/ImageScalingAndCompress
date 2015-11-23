@@ -33,3 +33,5 @@ class BaseContainer {
 		}
 	}
 };
+
+export default BaseContainer;

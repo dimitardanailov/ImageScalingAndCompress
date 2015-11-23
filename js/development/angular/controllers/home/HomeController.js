@@ -1,11 +1,11 @@
-import AngularConstants from 'AngularConstants';
-import AngularHelper from 'AngularHelper';
-import FileUploadHelper from 'FileUploadHelper';
-import WatchHelper from 'WatchHelper';
+import AngularConstants from './helpers/AngularConstants';
+import AngularHelper from './helpers/AngularHelper';
+import FileUploadHelper from './helpers/FileUploadHelper';
+import WatchHelper from './helpers/WatchHelper';
 
-export class HomeController {
+class HomeController {
 	constructor ($scope, $http, $resource, $timeout, Upload) {
-
+        
 		// Initialize
     	$scope.originalImageDetails = { 'width': 0, 'height': 0 };
     	$scope.scaleOptions = AngularConstants.generateScaleOptions();

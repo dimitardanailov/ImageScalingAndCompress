@@ -1,3 +1,5 @@
+import BaseContainer from './BaseContainer';
+
 class ImageCompressionStatistics extends BaseContainer {
 
 	/**
@@ -84,3 +86,5 @@ class ImageCompressionStatistics extends BaseContainer {
 		reference.initialize();
 	}
 }
+
+export default ImageCompressionStatistics;

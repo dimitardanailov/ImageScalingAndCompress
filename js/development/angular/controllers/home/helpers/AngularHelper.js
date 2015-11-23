@@ -1,4 +1,7 @@
-export class AngularHelper {
+import ImageCompressionContainer from './../../../../entities/htmlContainers/ImageCompressionContainer';
+import ImageCompressionStatistics from './../../../../entities/htmlContainers/ImageCompressionStatistics';
+
+class AngularHelper {
 	/**
 	 * Generate information for backend compression.
 	 */
@@ -43,3 +46,5 @@ export class AngularHelper {
 		}
 	}
 }
+
+export default AngularHelper;
