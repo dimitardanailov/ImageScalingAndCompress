@@ -26,5 +26,5 @@ gulp.task('watch', function() {
 
 	// By default, errors during watch should not be fatal.
 	gulpErrorHandling.fatalLevel = gulpErrorHandling.fatalLevel || 'off';
-	gulp.watch(trackingFiles, ['concat']);
+	gulp.watch(trackingFiles, ['browserify-transform']);
 });

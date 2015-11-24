@@ -8,6 +8,6 @@ import gulp from 'gulp';
 require('./gulp/build.js');
 require('./gulp/watch.js');
 
-gulp.task('default', ['concat']);
+gulp.task('default', ['browserify-transform']);
 
 gulp.task('build', ['minify']);
