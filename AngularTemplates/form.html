@@ -1,27 +1,20 @@
 <h2>Ng file upload</h2>
 
-<!--
 <section
 	  class="drop-box" 
-	  accept="image/png,image/jpeg"
+	  accept="{{ fileUpload.ngf-pattern }}"
 	  ngf-select="" 
 	  ngf-drop="" 
 	  ng-model="fileUpload.files" 
-	  ngf-model-invalid="fileUpload.invalidFiles" 
-	  ng-model-options="fileUploadOptions.modelOptionsObj" 
-	  ngf-multiple="multiple" 
-	  ngf-pattern="image/png,image/jpeg" 
-	  ng-disabled="disabled" 
-	  ngf-capture="capture" 
+	  ngf-model-invalid="fileUpload.invalidFiles"
+	  ngf-pattern="{{ fileUpload.ngf-pattern }}" 
 	  ngf-drag-over-class="dragOverClassObj" 
 	  ngf-validate="validateObj" 
-	  ngf-keep="keepDistinct ? 'distinct' : keep" 
-	  ngf-allow-dir="allowDir"
+	  ngf-multiple="{{ fileUpload.multiple }}"
 	  ngf-drop-available="dropAvailable">
 	 Select File, 
 	 <span ng-show="dropAvailable" class="">Drop File or Paste/Drop Image</span>
 </section>
--->
 
 <hr/>
 

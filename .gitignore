@@ -1,5 +1,6 @@
 # Project gitignore
 images/compress/
+images/uploads/
 shell-example.php
 js/production/
 

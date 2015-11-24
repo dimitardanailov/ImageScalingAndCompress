@@ -2,8 +2,9 @@
 namespace MVC\Controller;
 
 use \stdClass;
-use Enums\Enum as Enum;
+use Enums\Enum\ResponseError;
 use Entities\FilePath;
+use MVC\Helper\FileUploadHelper;
 use \Library\JSON\JsonHelper;
 use Library\Image\ImageMagick\ScissorImagick;
 use Library\Image\ImageMagick\FileSystemImagick;
@@ -14,6 +15,9 @@ class ImageController {
 
 	const ImageLocationOfCurrentImages = 'images/';
 	const ImageLocationForNewImages = 'images/compress/';
+	const ImageLocationForUploading = 'images/uploads/';
+	const CleanupTargetDir = true; // Remove old files
+	const MaxFileAge = 18000; // (5 * 3600) Temp file age in seconds
 
 	public function __construct() {
 		$this->jsonHelper = new JsonHelper();
@@ -73,6 +77,28 @@ class ImageController {
 			} else {
 				$this->jsonHelper->responseDefaultError();
 			}
+		} else {
+			$this->jsonHelper->responseDefaultError();
+		}
+	}
+
+	public function uploadImage() {
+		// $operationResponse is equal to true, if you we can create folder or folder exist.
+		$operationResponse = FileUploadHelper::checkFolderExistAndCreateDirectory(ImageController::ImageLocationForUploading);
+
+		if ($operationResponse) {
+			$fileName = FileUploadHelper::generateFileName();
+			$filePath = new FilePath(ImageController::ImageLocationForUploading, $fileName);
+
+			// Remove old temp files	
+			if (ImageController::CleanupTargetDir) {
+				if (!is_dir($filePath->getPath()) || !$dir = opendir($filePath->getPath())) {
+					$this->jsonHelper->responseCustomError(ResponseError::PERMISSION_DENIED, 'Failed to open directory.');
+				}
+
+				// Upload image to file system.
+			}
+
 		} else {
 			$this->jsonHelper->responseDefaultError();
 		}

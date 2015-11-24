@@ -3,10 +3,14 @@
 // Enums
 require_once './enums/ResponseError.php';
 
-
 // entities
 require_once './entities/FilePath.php';
 require_once './entities/ImageFileInfo.php';
+
+// helpers
+// FileUploadHelper
+require_once './helpers/Interfaces/iFileUploadHelper.php';
+require_once './helpers/FileUploadHelper.php';
 
 // Libs
 require_once './libraries/Json/JsonHelper.php';
