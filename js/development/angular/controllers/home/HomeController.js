@@ -54,6 +54,7 @@ class HomeController {
     	$scope.compressImage = () => {
     		const compressInformation = AngularHelper.generatePostObject($scope);
     		$http.post("compress.php", compressInformation).success(function (data, status, headers, config) {
+                console.log(data);
     			AngularHelper.generateContainersWithImageInfoAndLoadImageWithCompression(data);
             }).error(function (error, status, headers, config) {
             	alert('Server Error');

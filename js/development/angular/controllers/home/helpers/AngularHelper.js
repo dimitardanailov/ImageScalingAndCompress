@@ -1,5 +1,6 @@
 import ImageCompressionContainer from './../../../../entities/htmlContainers/ImageCompressionContainer';
 import ImageCompressionStatistics from './../../../../entities/htmlContainers/ImageCompressionStatistics';
+import AngularConstants from './AngularConstants';
 
 class AngularHelper {
 	/**
