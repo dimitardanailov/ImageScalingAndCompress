@@ -39,8 +39,20 @@ import gulpErrorHandling from './custom-modules/gulp-error-handling'
 // Load Javascript Configurations
 import js from './configurations/javascript'
 
+/**
+ * Task will delete application production files.
+ */
+gulp.task('contact:clear-main-files', () => {
+	const javascriptMainFile = `${js.configuration.folderStructure.baseProduction}/${js.configuration.concatenationLocations.mainfile}`;
+	const sourceMap = javascriptMainFile + '.map';
 
-gulp.task('browserify-transform', () => {
+	del([
+		javascriptMainFile,
+		sourceMap
+	]);
+});
+
+gulp.task('browserify-transform', ['contact:clear-main-files'], () => {
  	return GulpHelper.browserifyTransform(false);
 });
 
@@ -56,7 +68,7 @@ gulp.task('minify:styles', function() {
  * Minify application javascript file.
  * This task will be used only in production.
  */
-gulp.task('minify:javascript', function() {
+gulp.task('minify:javascript', ['contact:clear-main-files'], function() {
 	return GulpHelper.browserifyTransform(true);
 });
 

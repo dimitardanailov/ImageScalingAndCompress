@@ -1,7 +1,8 @@
+import moduleName from './../../app.module';
 import HomeController from './HomeController';
 
 angular
-	.module("ImageScalingAndCompress")
+	.module(moduleName)
 	.controller("HomeCtrl", HomeController);
 
 Image.prototype.updateLocation = function(scope) {

@@ -1,4 +1,7 @@
 // Libraries
+require('angular');
+require('angular-resource');
+require('angular-route');
 require('ng-file-upload');
 
 // Entities
