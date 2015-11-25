@@ -18,10 +18,11 @@ interface iScissorImagick {
 	 * Note we can enable progressive download for image.
 	 * Image has progressive rendering if you interlaceSchemeIsEnable is equal to true.
 	 *
-	 * @param $width
-	 * @param $height
-	 * @param $quality
-	 * @param $bestFit
+	 * @param integer $width
+	 * @param integer $height
+	 * @param integer $quality
+	 * @param bool $bestFit
+	 * @param bool $interlaceSchemeIsEnable 
 	 *
 	 * @link http://phpimagick.com/Imagick/adaptiveResizeImage
 	 * @link http://blog.codinghorror.com/progressive-image-rendering/

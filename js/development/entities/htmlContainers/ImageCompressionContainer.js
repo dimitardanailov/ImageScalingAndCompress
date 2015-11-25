@@ -32,7 +32,7 @@ class ImageCompressionContainer extends BaseContainer {
 	 */
 	createImage() {
 		const imageWithOptimization = new Image();
-		imageWithOptimization.src = this.imageCompressionStatistics.path + this.imageCompressionStatistics.filename;
+		imageWithOptimization.src = this.imageCompressionStatistics.browserPath + this.imageCompressionStatistics.filename;
 
 		this.imageFrameWrapper = document.createElement('div');
 		this.imageFrameWrapper.setAttribute('class', this.imageFrameClassName);

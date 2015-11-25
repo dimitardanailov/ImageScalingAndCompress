@@ -6,12 +6,15 @@ namespace Entities;
  * @author dimitar.danailov@mentormate.com
  */
 class FilePath {
-	public $path;
+	public $path; // Full folder path.
 	public $filename;
+	public $browserPath;
 
 	public function	__construct($path, $filename) {
 		$this->path = $path;
 		$this->filename = $filename;
+
+		$this->browserPath = str_replace(ProjectRootFolder . '/', null, $this->path);
 	}
 
 	/*** path ***/
@@ -34,6 +37,16 @@ class FilePath {
 	}
 	/*** filename ***/
 
+	/*** browserPath ***/
+	public function getBrowserPath() {
+		return $this->browserPath;
+	}
+
+	public function setBrowserPath($browserPath) {
+		$this->browserPath = $browserPath;
+	}
+	/*** browserPath ***/
+
 	/**
 	 * Generate full path to image.
 	 * Create a concatenation between path and filename.
@@ -41,4 +54,6 @@ class FilePath {
 	public function getFullPath() {
 		return $this->getPath() . $this->getFileName();
 	}
+
+
 }
