@@ -4,17 +4,17 @@ Tool need to provide infrastructure for building of image with optimization.  Cu
 
 Current we support:
 
-	- We can compress: PNG and JPEG files.
-	- We can scale image.
-	- We can change colors of images. We lossy image compression. (Image is processed with a “lossy” filter that eliminates some pixel data).
-	- We can apply Progressive Image Rendering (http://blog.codinghorror.com/progressive-image-rendering/).
+  - We can compress: PNG and JPEG files.
+  - We can scale image.
+  - We can change colors of images. We lossy image compression. (Image is processed with a “lossy” filter that eliminates some pixel data).
+  - We can apply Progressive Image Rendering (http://blog.codinghorror.com/progressive-image-rendering/).
 
 ### Requirements
-	* PHP version 5.5+
-	* Nodejs version 4.2.2
-	* Apache server or Nginx server
-	* pngquant 2.+
-	* ImageMagick 6.9.+
+  - PHP version 5.5+
+  - Nodejs version 4.2.2
+  - Apache server or Nginx server
+  - pngquant 2.+
+  - ImageMagick 6.9.+
 
 ### MAC OS X Installation
 
@@ -22,15 +22,15 @@ Current we support:
 
 Please follow instructions:
 
-	- [Get Apache, MySQL, PHP and phpMyAdmin working on OSX 10.9 Mavericks](http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-9-mavericks/)
-	- [Get Apache, MySQL, PHP and phpMyAdmin working on OSX 10.10 Yosemite](http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-10-yosemite/) 
-	- [Get Apache, MySQL, PHP and phpMyAdmin working on OSX 10.11 El Capitan](http://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working-on-osx-10-11-el-capitan)
+  - [Get Apache, MySQL, PHP and phpMyAdmin working on OSX 10.9 Mavericks](http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-9-mavericks/)
+  - [Get Apache, MySQL, PHP and phpMyAdmin working on OSX 10.10 Yosemite](http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-10-yosemite/) 
+  - [Get Apache, MySQL, PHP and phpMyAdmin working on OSX 10.11 El Capitan](http://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working-on-osx-10-11-el-capitan)
 
 **Note**: We need only Apache and PHP (Of course the current widget support and Nginx).
 
 #### Get Xdebug
 
-Please follow instructions in: [](http://xdebug.org/wizard.php)
+Please follow instructions in: [Xdebug: Support; Tailored Installation Instructions](http://xdebug.org/wizard.php)
 
 #### PngQuant
 
