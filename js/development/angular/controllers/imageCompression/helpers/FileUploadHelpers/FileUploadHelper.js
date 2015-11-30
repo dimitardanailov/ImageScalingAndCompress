@@ -4,35 +4,16 @@
  */
 class FileUploadHelper {
 
-	constructor($scope, $timeout, Upload) {
-        this.scope = $scope;
+	constructor($scope, $timeout, Upload, uploadOptions) {
+        this.scope = $scope;    
 		this.timeout = $timeout;
 		this.Upload = Upload;
 
 		// Get Configurations
-		this.scope.fileUpload = FileUploadHelper.generateFileUploadOptions();
+		this.scope.fileUpload = uploadOptions;
 
 		this.trackUploading();
 	}
-
-	static generateFileUploadOptions() {
-    	const fileUploadOptions = {};
-
-    	// ngf-model-invalid (binds the invalid selected/dropped files to this model.)
-    	fileUploadOptions.invalidFiles = [];
-
-    	// ng-model-options
-    	fileUploadOptions.modelOptionsObj = {};
-    	
-    	//Validations:
-    	fileUploadOptions.pattern="'image/png,image/jpeg"
-    	
-    	fileUploadOptions.chunkSize = 100000;
-    	fileUploadOptions.multiple = false;
-    	fileUploadOptions.backendLocation = 'upload.php';
-
-    	return fileUploadOptions;
-    }
 
     /**
      * When files array is changed.

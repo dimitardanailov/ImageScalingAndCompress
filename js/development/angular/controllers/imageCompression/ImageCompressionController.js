@@ -1,9 +1,13 @@
 import AngularConstants from './helpers/AngularConstants';
 import AngularHelper from './helpers/AngularHelper';
-import FileUploadHelper from './helpers/FileUploadHelper';
 import WatchHelper from './helpers/WatchHelper';
 
-class HomeController {
+// FileUploadHelper
+import ImageUploadOption from './helpers/FileUploadHelpers/entities/ImageUploadOption';
+import FileUploadHelper from './helpers/FileUploadHelpers/FileUploadHelper';
+
+
+class ImageCompressionController {
 	constructor ($scope, $http, $resource, $timeout, Upload) {
         
 		// Initialize
@@ -23,7 +27,9 @@ class HomeController {
     	$scope.originalImage.updateLocation($scope);
 
     	// ng-file-upload
-        new FileUploadHelper($scope, $timeout, Upload);
+        const uploadOptions = ImageUploadOption.generateDefaultImageOptions('upload.php');
+        console.log(uploadOptions.imageThumbnailSize);
+        new FileUploadHelper($scope, $timeout, Upload, uploadOptions);
     	
     	// Scope Watch
     	WatchHelper.addWatcherForOriginalImageDetails($scope);
@@ -62,6 +68,6 @@ class HomeController {
 	}
 }
 
-HomeController.$inject = ['$scope', '$http', '$resource', '$timeout', 'Upload'];
+ImageCompressionController.$inject = ['$scope', '$http', '$resource', '$timeout', 'Upload'];
 
-export default HomeController;
+export default ImageCompressionController;

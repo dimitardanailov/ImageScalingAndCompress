@@ -2,7 +2,7 @@
 
 <section
 	  class="drop-box" 
-	  accept="{{ fileUpload.ngf-pattern }}"
+	  accept="{{ fileUpload.pattern}}"
 	  ngf-select="" 
 	  ngf-drop="" 
 	  ng-model="fileUpload.files" 
@@ -20,7 +20,8 @@
  	<div>Preview images:</div>
  	<div>Files: {{ fileUpload.files.length }}</div>
  	<div class="image-preview-frame">
- 		<img ngf-src="!files[0].$error && fileUpload.files[0]">
+ 		<img ngf-src="!files[0].$error && fileUpload.files[0]"
+ 		     style="max-width: {{ fileUpload.imageThumbnailSize.width }}px; max-height:{{ fileUpload.imageThumbnailSize.height }}px;">
  	</div>
  </section>
 
@@ -110,6 +111,3 @@
 		</section>
 	</section>
 </section>
-
-
-

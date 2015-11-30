@@ -11,7 +11,7 @@ function Configuration($routeProvider, $locationProvider) {
 
         // View your twitter newsletters
         .when('/', {
-            controller: 'HomeCtrl',
+            controller: 'ImageCompressionController',
             templateUrl: 'AngularTemplates/form.html'
         });
 

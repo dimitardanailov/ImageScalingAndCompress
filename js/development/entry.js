@@ -25,11 +25,15 @@ require('./angular/directives/getImageDetails/index.js');
 require('./angular/directives/changeImageDimension/ChangeImageDimensionDirective.js');
 require('./angular/directives/changeImageDimension/index.js');
 
-// Home Controller - Helpers
-require('./angular/controllers/home/helpers/AngularConstants.js');
-require('./angular/controllers/home/helpers/AngularHelper.js');
-require('./angular/controllers/home/helpers/FileUploadHelper.js');
-require('./angular/controllers/home/helpers/WatchHelper.js');
+// Image Compression Controller - Helpers
+require('./angular/controllers/imageCompression/helpers/AngularConstants.js');
+require('./angular/controllers/imageCompression/helpers/AngularHelper.js');
+require('./angular/controllers/imageCompression/helpers/WatchHelper.js');
+// FileUploadHelper
+require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/entities/FileUploadOption.js');
+require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/entities/ImageUploadOption.js');
+require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/FileUploadHelper.js');
+
 // Home Controller
-require('./angular/controllers/home/HomeController.js');
-require('./angular/controllers/home/index.js');
+require('./angular/controllers/imageCompression/ImageCompressionController.js');
+require('./angular/controllers/imageCompression/index.js');
