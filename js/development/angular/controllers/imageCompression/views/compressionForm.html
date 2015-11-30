@@ -1,0 +1,113 @@
+<h2>Ng file upload</h2>
+
+<section
+	  class="drop-box" 
+	  accept="{{ fileUpload.pattern}}"
+	  ngf-select="" 
+	  ngf-drop="" 
+	  ng-model="fileUpload.files" 
+	  ngf-model-invalid="fileUpload.invalidFiles"
+	  ngf-pattern="{{ fileUpload.ngf-pattern }}" 
+	  ngf-drag-over-class="dragOverClassObj" 
+	  ngf-validate="validateObj" 
+	  ngf-multiple="{{ fileUpload.multiple }}"
+	  ngf-drop-available="dropAvailable">
+	 Select File, 
+	 <span ng-show="dropAvailable" class="">Drop File or Paste/Drop Image</span>
+</section>
+
+<section class="preview">
+ 	<div>Preview images:</div>
+ 	<div>Files: {{ fileUpload.files.length }}</div>
+ 	<div class="image-preview-frame">
+ 		<img ngf-src="!files[0].$error && fileUpload.files[0]"
+ 		     style="max-width: {{ fileUpload.imageThumbnailSize.width }}px; max-height:{{ fileUpload.imageThumbnailSize.height }}px;">
+ 	</div>
+ </section>
+
+<hr/>
+
+<h2>
+	Image scaling
+</h2>
+
+<section>
+	<fieldset>
+		<label class="bold" for="filetype">Choose file type:</label>
+		<select id="filetype"
+				ng-init="filetype = filetypes[0]"
+				ng-options="filetype.extension for filetype in filetypes track by filetype.type" 
+				ng-model="filetype" ng-change="setNewFileType()"></select>
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="width">Width:</label>
+		<input type="number" 
+			   dimension-key="width"
+			   change-image-dimension
+			   ng-value="{{ scaleOptions.dimensions.width }}" 
+			   max="{{ originalImageDetails.width }}" 
+			   ng-model="scaleOptions.dimensions.width"/>
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="height">Height:</label>
+		<input type="number" 
+			   dimension-key="height"
+			   change-image-dimension
+			   ng-value="{{ scaleOptions.dimensions.height }}" 
+			   max="{{ originalImageDetails.height }}" 
+			   ng-model="scaleOptions.dimensions.height"/>
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="proportionally">Scale proportionally</label>
+		<input type="checkbox" ng-model="scaleOptions.proportionally" id="proportionally" />
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="progressive_image_rendering">Progressive Image Rendering</label>
+		<input type="checkbox" ng-model="scaleOptions.progressiveImageRendering" id="progressive_image_rendering" />
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="quality">Quality:</label>
+		<input type="range" min="0" max="100" value="{{ imageQuality }}" ng-model="imageQuality" id="quality"/>
+		<span class="display-block">
+			<span class="quality-wrapper bold">{{ imageQuality }}</span> 
+		</span>
+	</fieldset>
+
+	<fieldset>
+		<label class="bold" for="image">Choose image</label>
+		<select id="image"
+				ng-init="image = images[0]"
+				ng-options="image.name for image in images track by image.filename" 
+				ng-model="image" ng-change="setNewImage()"></select>
+	</fieldset>
+
+	<fieldset>
+		<span ng-click="compressImage()" class="form-submit-button button-type-light-silver">Generate a new image</span>
+	</fieldset>
+	
+	<section>
+		<!-- Grid C -->
+		<section class="wrapper-grid-c">
+			<!--- Left Cell -->
+			<section class="wrapper-block-a overflow-hidden">
+				<section id="js-container-statistics-currentImage"></section>
+
+				<div class="image-preview-frame">
+					<img ng-src="{{ originalImage.src }}" get-image-details ng-model="originalImageDetails"/>
+				</div>
+			</section>
+			<!--- End Left Cell -->
+			
+			<!--- Right Cell -->
+			<section class="wrapper-block-b overflow-hidden">
+				<section id="js-container-statistics-imageWithOptimization"></section>
+			</section>
+			<!--- End Right Cell -->
+		</section>
+	</section>
+</section>

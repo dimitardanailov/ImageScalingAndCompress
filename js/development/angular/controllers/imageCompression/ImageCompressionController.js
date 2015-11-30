@@ -8,7 +8,7 @@ import FileUploadHelper from './helpers/FileUploadHelpers/FileUploadHelper';
 
 
 class ImageCompressionController {
-	constructor ($scope, $http, $resource, $timeout, Upload) {
+	constructor ($scope, $http, $timeout, Upload) {
         
 		// Initialize
     	$scope.originalImageDetails = { 'width': 0, 'height': 0 };
@@ -68,6 +68,6 @@ class ImageCompressionController {
 	}
 }
 
-ImageCompressionController.$inject = ['$scope', '$http', '$resource', '$timeout', 'Upload'];
+ImageCompressionController.$inject = ['$scope', '$http', '$timeout', 'Upload'];
 
 export default ImageCompressionController;

@@ -1,7 +1,9 @@
 // Libraries
+// Angularjs 
 require('angular');
 require('angular-resource');
-require('angular-route');
+// Other
+require('angular-ui-router');
 require('ng-file-upload');
 
 // Entities
@@ -25,7 +27,9 @@ require('./angular/directives/getImageDetails/index.js');
 require('./angular/directives/changeImageDimension/ChangeImageDimensionDirective.js');
 require('./angular/directives/changeImageDimension/index.js');
 
-// Image Compression Controller - Helpers
+
+// Image Compression Controller
+// Helpers
 require('./angular/controllers/imageCompression/helpers/AngularConstants.js');
 require('./angular/controllers/imageCompression/helpers/AngularHelper.js');
 require('./angular/controllers/imageCompression/helpers/WatchHelper.js');
@@ -34,6 +38,12 @@ require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/entiti
 require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/entities/ImageUploadOption.js');
 require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/FileUploadHelper.js');
 
-// Home Controller
+// Templates
+require('./angular/controllers/imageCompression/views/compressionForm.html');
+
 require('./angular/controllers/imageCompression/ImageCompressionController.js');
+require('./angular/controllers/imageCompression/ImageCompression.Route.js');
 require('./angular/controllers/imageCompression/index.js');
+
+
+// https://github.com/vigetlabs/gulp-starter/issues/17
