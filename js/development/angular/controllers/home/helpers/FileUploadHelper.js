@@ -5,7 +5,7 @@
 class FileUploadHelper {
 
 	constructor($scope, $timeout, Upload) {
-		this.scope = $scope;
+        this.scope = $scope;
 		this.timeout = $timeout;
 		this.Upload = Upload;
 
@@ -41,13 +41,20 @@ class FileUploadHelper {
     trackUploading() {
     	let tempFiles = [], _this = this;
     	this.scope.$watch('fileUpload.files', (files) => {
-    		
+
+            console.log('after', _this.files && _this.files.length);
+
     		if (files != null) {
     			if (angular.isArray(files)) {
     				tempFiles = files;
     			} else {
     				tempFiles[0] = files;
     			}
+
+                // We have a new file upload.
+                _this.timeout(() => {
+                    _this.scope.fileUpload.files = tempFiles;
+                });
                 
     			tempFiles.forEach((tempFile) => {
     				_this.uploadFile(_this.scope, tempFile, false);
@@ -80,7 +87,7 @@ class FileUploadHelper {
     	});
 
     	file.upload.then((response) => {
-    		console.log(response);
+            console.log('uploaded');
     	}, function(response) {
     		console.log(response);
     	});
@@ -90,7 +97,5 @@ class FileUploadHelper {
     	});
     }
 } 
-
-FileUploadHelper.$inject = ['$timeout'];
 
 export default FileUploadHelper;

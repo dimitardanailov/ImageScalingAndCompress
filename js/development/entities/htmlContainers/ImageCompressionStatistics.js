@@ -19,22 +19,20 @@ class ImageCompressionStatistics extends BaseContainer {
 
 		this.imageCompressionStatistics = imageCompressionStatistics;
 
-		this.initialize();
-    }
-
-	/**
- 	* Create all elements and append these elements to parent node.
- 	*/
-	initialize() {
 		this.removeParentNodeChildren();
 
 		// Main Node
 		this.list = document.createElement('ul');
 		this.list.setAttribute('class', this.listClassName);
+    }
 
+	/**
+ 	* Create all elements and append these elements to parent node.
+ 	*/
+	initialize() {		
 		// Filesize Node
 		if (this.imageCompressionStatistics.hasOwnProperty('fileSize')) {
-			this.listItemImageSize = this.createImageSizeInformation();	
+			this.createImageSizeInformation();	
 		} else {
 			throw 'Invalid object. Object should to have information for image fileSize.';
 		}
@@ -50,11 +48,11 @@ class ImageCompressionStatistics extends BaseContainer {
      * 
      */
 	createImageSizeInformation() {
-		const listItemImageSize = document.createElement('li');
-		this.generateListItemChild(listItemImageSize, 'File size in kilobytes:', this.labelsClassName);
-		this.generateListItemChild(listItemImageSize, this.imageCompressionStatistics.fileSize['kilobytes'], this.valuesClassName)
+		const listItem = document.createElement('li');
+		this.generateListItemChild(listItem, 'File size in kilobytes:', this.labelsClassName);
+		this.generateListItemChild(listItem, this.imageCompressionStatistics.fileSize['kilobytes'], this.valuesClassName)
 
-	    this.list.appendChild(listItemImageSize);
+	    this.list.appendChild(listItem);
 	}
 
 	/**

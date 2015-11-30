@@ -16,6 +16,14 @@
 	 <span ng-show="dropAvailable" class="">Drop File or Paste/Drop Image</span>
 </section>
 
+<section class="preview">
+ 	<div>Preview images:</div>
+ 	<div>Files: {{ fileUpload.files.length }}</div>
+ 	<div class="image-preview-frame">
+ 		<img ngf-src="!files[0].$error && fileUpload.files[0]">
+ 	</div>
+ </section>
+
 <hr/>
 
 <h2>
