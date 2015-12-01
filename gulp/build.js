@@ -93,10 +93,23 @@ class GulpHelper {
 	static browserifyTransform(uglifyIsEnable) {
 		// set up the browserify instance on a task basis
 		const browserifyStream = browserify({
-	    	entries: `${js.configuration.folderStructure.baseDevelopment}/entry.js`,
-	    	debug: true,
+	    	'entries': `${js.configuration.folderStructure.baseDevelopment}/entry.js`,
+
+	    	// When opts.debug is true, add a source map inline to the end of the bundle. 
+	    	// This makes debugging easier because you can see all the original files if you are in a modern enough browser.
+	    	'debug': (uglifyIsEnable ? false : true),
+
+			// opts.paths is an array of directories that browserify searches when looking for 
+			// modules which are not referenced using relative path. Can be absolute or relative to basedir. 
+			// Equivalent of setting NODE_PATH environmental variable when calling browserify command.
+			// Get idea from: https://github.com/vigetlabs/gulp-starter/issues/17
+			paths: [
+				'./node_modules',
+				'./js/development/'
+			],
+
 	    	// defining transforms here will avoid crashing your stream
-	    	transform: [babelify]
+	    	'transform': [babelify]
 	  	});
 
 	  	const tempConfiguration = browserifyStream.bundle()

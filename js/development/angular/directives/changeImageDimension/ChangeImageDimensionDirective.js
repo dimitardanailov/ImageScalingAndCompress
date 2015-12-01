@@ -1,4 +1,4 @@
-import WatchHelper from './../../controllers/imageCompression/helpers/WatchHelper'
+import WatchHelper from 'angular/controllers/imageCompression/helpers/WatchHelper'
 
 /**
  * We need to change dimensions simultaneously, when width or height is changed.

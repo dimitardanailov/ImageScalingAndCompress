@@ -41,6 +41,3 @@ require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/FileUp
 require('./angular/controllers/imageCompression/ImageCompressionController.js');
 require('./angular/controllers/imageCompression/ImageCompression.Route.js');
 require('./angular/controllers/imageCompression/ImageCompression.Module.js');
-
-
-// https://github.com/vigetlabs/gulp-starter/issues/17

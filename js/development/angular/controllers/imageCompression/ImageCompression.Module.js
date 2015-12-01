@@ -1,4 +1,4 @@
-import moduleName from './../../app.module';
+import moduleName from 'angular/app.module';
 import ImageCompressionRouteConfiguration from './ImageCompression.Route.js';
 
 angular
