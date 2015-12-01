@@ -38,12 +38,9 @@ require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/entiti
 require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/entities/ImageUploadOption.js');
 require('./angular/controllers/imageCompression/helpers/FileUploadHelpers/FileUploadHelper.js');
 
-// Templates
-require('./angular/controllers/imageCompression/views/compressionForm.html');
-
 require('./angular/controllers/imageCompression/ImageCompressionController.js');
 require('./angular/controllers/imageCompression/ImageCompression.Route.js');
-require('./angular/controllers/imageCompression/index.js');
+require('./angular/controllers/imageCompression/ImageCompression.Module.js');
 
 
 // https://github.com/vigetlabs/gulp-starter/issues/17

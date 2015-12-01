@@ -1,23 +1,21 @@
-import CompressionFormTemplate from './views/compressionForm.html';
 import ImageCompressionController from './ImageCompressionController';
 
 /**
  * @ngdoc function
  * @description
  */
-function RouteConfiguration($stateProvider) {
-
+function ImageCompressionRouteConfiguration($stateProvider) {
 	$stateProvider
 		// Using a '.' within a state name declares a child within a parent.
 		// So you have a new state 'homepage' within the parent 'app' state.
 		.state('widgets.imagecompression', {
-			url: '/',
-			template: CompressionFormTemplate,
+			url: '/widgets.imagecompression',
+			templateUrl: 'js/development/angular/controllers/imageCompression/views/compressionForm.html',
 			controller: ImageCompressionController,
 			controllerAs: 'ImageCompressionController'
 		});
-}
+};
 
-RouteConfiguration.$inject = ['$stateProvider'];
+ImageCompressionRouteConfiguration.$inject = ['$stateProvider'];
 
-export default RouteConfiguration;
+export default ImageCompressionRouteConfiguration;

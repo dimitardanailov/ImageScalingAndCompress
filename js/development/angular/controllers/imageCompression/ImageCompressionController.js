@@ -28,7 +28,6 @@ class ImageCompressionController {
 
     	// ng-file-upload
         const uploadOptions = ImageUploadOption.generateDefaultImageOptions('upload.php');
-        console.log(uploadOptions.imageThumbnailSize);
         new FileUploadHelper($scope, $timeout, Upload, uploadOptions);
     	
     	// Scope Watch

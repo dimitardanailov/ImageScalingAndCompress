@@ -93,7 +93,7 @@ class GulpHelper {
 	static browserifyTransform(uglifyIsEnable) {
 		// set up the browserify instance on a task basis
 		const browserifyStream = browserify({
-	    	entries: `${js.configuration.folderStructure.baseDevelopment}/entry.js` ,
+	    	entries: `${js.configuration.folderStructure.baseDevelopment}/entry.js`,
 	    	debug: true,
 	    	// defining transforms here will avoid crashing your stream
 	    	transform: [babelify]
