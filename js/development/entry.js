@@ -26,7 +26,9 @@ require('./angular/directives/getImageDetails/index.js');
 // changeImageDimension
 require('./angular/directives/changeImageDimension/ChangeImageDimensionDirective.js');
 require('./angular/directives/changeImageDimension/index.js');
-
+// ng-compression-file-upload
+require('./angular/directives/ng-compression-file-upload/CompressionFileUpload.js');
+require('./angular/directives/ng-compression-file-upload/index.js');
 
 // Image Compression Controller
 // Helpers

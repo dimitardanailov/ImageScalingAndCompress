@@ -1,13 +1,36 @@
+<h2>My Directive</h2>
+
+<ng-compression-file-upload
+	class="dropbox"
+	accept="{{ fileUpload.pattern }}"
+	
+	ngcfu-type="imageUpload"
+	ngcfu-image-proportionally="{{ scaleOptions.proportionally }}"
+	ngcfu-image-progressive-rendering="{{ scaleOptions.progressiveImageRendering }}"
+	ngcfu-image-quality="{{ imageQuality }}"
+
+	ng-model="fileUpload.files" 
+
+	ngcfu-ngf-select=""
+	ngcfu-ngf-drop=""
+	ngcfu-ngf-pattern="{{ fileUpload.pattern }}"
+	ngcfu-ngf-multiple="{{ fileUpload.multiple }}"
+	ngcfu-ngf-drop-available="dropAvailable">
+
+</ng-compression-file-upload>
+
+<hr/>
+
 <h2>Ng file upload</h2>
 
 <section
 	  class="drop-box" 
-	  accept="{{ fileUpload.pattern}}"
+	  accept="{{ fileUpload.pattern }}"
 	  ngf-select="" 
 	  ngf-drop="" 
 	  ng-model="fileUpload.files" 
-	  ngf-model-invalid="fileUpload.invalidFiles"
-	  ngf-pattern="{{ fileUpload.ngf-pattern }}" 
+	  ngf-model-invalid="{{ fileUpload.invalidFiles }}"
+	  ngf-pattern="{{ fileUpload.pattern }}" 
 	  ngf-drag-over-class="dragOverClassObj" 
 	  ngf-validate="validateObj" 
 	  ngf-multiple="{{ fileUpload.multiple }}"

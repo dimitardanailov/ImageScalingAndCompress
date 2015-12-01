@@ -131,3 +131,20 @@ cd project_folder
 mkdir images/compress/
 chmod -R 777 images/compress/
 ```
+
+### Angular Directives
+
+#### ngCompressionFileUpload
+
+```html
+<ng-compression-file-upload
+  // Current widget support three types of uploading: 
+  // {imageUpload: We need to add more information for image compression options }
+  // Mandatory field
+  ngcfu-type="imageUpload|fileUpload|audioUpload"
+
+  // what should to be default quality of image.
+  ngcfu-image-proportionally="integer">
+
+</ng-compression-file-upload>
+```
