@@ -2,7 +2,7 @@ import ApplicationArray from 'entities/javascript/array/ApplicationArray';
 import ApplicationObject from 'entities/javascript/object/ApplicationObject';
 import HTMLAttribute from 'entities/DOM/HTMLAttribute.js';
 
-class NgFileUploadHelper {
+class ElementCreatorHelper {
 
 	/**
 	 * Function will generate object from ng-file-upload object
@@ -89,10 +89,10 @@ class NgFileUploadHelper {
 	 * @property Object attrs is element attributes.
 	 */
 	static generateNgFileUploadElements(elementType, attrs) {
-		const reference = new NgFileUploadHelper(elementType, attrs);
+		const reference = new ElementCreatorHelper(elementType, attrs);
 		
 		return reference.ngFileUploadElement;
 	}
 }
 
-export default NgFileUploadHelper;
+export default ElementCreatorHelper;

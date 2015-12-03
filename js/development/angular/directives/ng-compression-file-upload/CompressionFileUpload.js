@@ -1,6 +1,5 @@
 import CompressionFileUploadController from 'angular/directives/ng-compression-file-upload/controllers/CompressionFileUploadController';
 
-
 /**
  * @ngdoc directive
  * @name ImageScalingAndCompress:directive:CompressionFileUpload
@@ -21,19 +20,13 @@ class CompressionFileUpload {
 	}
 
 	link (scope, element, attrs, CompressionFileUpload) {
-		
-		console.log(element);
-		console.log(scope);
-		console.log(attrs);
-
-		// $compile instance
-		const compile = CompressionFileUpload.getCompile();
-
 		if (attrs.hasOwnProperty('ngcfuType')) {
 			const ngFileUploadContainer = CompressionFileUpload.compileNgFileUploadByAttributes(attrs);
 			element.append(ngFileUploadContainer);
+
+			CompressionFileUpload.addTrackingForFileUpload(ngFileUploadContainer);
 		} else {
-			throw 'element should to has ngcfuType attribute';
+			throw 'element should to have ngcfuType attribute';
 		}
 	}
 }

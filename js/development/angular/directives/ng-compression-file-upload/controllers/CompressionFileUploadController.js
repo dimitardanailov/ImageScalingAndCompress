@@ -1,4 +1,6 @@
-import NgFileUploadHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelper';
+import ElementCreatorHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/ElementCreatorHelper';
+import FileUploadHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/FileUploadHelper';
+import ApplicationObject from 'entities/javascript/object/ApplicationObject';
 
 /**
  * @ngdoc class
@@ -13,14 +15,30 @@ import NgFileUploadHelper from 'angular/directives/ng-compression-file-upload/he
  */
 class CompressionFileUploadController {
 
-	constructor ($scope, $compile) {
+	constructor ($scope, $compile, $http, $timeout, Upload) {
 		this.scope = $scope;
 		this.compile = $compile;
+		this.http = $http;
+		this.timeout = $timeout;
+		this.Upload = Upload; 
+
 		this.defaultNgFileUploadType = 'section';
+		this.attributes = null;
 	}
 
-	getCompile() {
-		return this.compile;
+	/**
+	 * Add $watcher for parent directive, when ng-model is changed. 
+	 * 
+	 * @property Object attrs is element attributes.
+	 */
+	addTrackingForFileUpload(ngFileUploadContainer) {
+		if (ngFileUploadContainer.hasOwnProperty('0')) {
+			const element = ngFileUploadContainer[0];
+			this.attributes = ApplicationObject.extractAttributesFromElement(element);
+			console.log(this.attributes);
+		}
+		// this.attrs = attrs;
+		// FileUploadHelper.createUploadReference(this.scope, this.timeout, this.Upload, this.attributes);
 	}
 
 	/**
@@ -35,7 +53,7 @@ class CompressionFileUploadController {
 	 */
 	compileNgFileUploadByAttributes(attrs) {
 		// Generate ng-file-upload element. 
-		const tempElement = NgFileUploadHelper.generateNgFileUploadElements(this.defaultNgFileUploadType, attrs);
+		const tempElement = ElementCreatorHelper.generateNgFileUploadElements(this.defaultNgFileUploadType, attrs);
 		const ngFileUploadContainer = angular.element(tempElement);
 
 		const ngFileUploadContainerWithCompilation = this.compile(ngFileUploadContainer)(this.scope);
@@ -44,6 +62,6 @@ class CompressionFileUploadController {
 	}
 }
 
-CompressionFileUploadController.$inject = ['$scope', '$compile'];
+CompressionFileUploadController.$inject = ['$scope', '$compile', '$http', '$timeout', 'Upload'];
 
 export default CompressionFileUploadController;

@@ -4,13 +4,11 @@
  */
 class FileUploadHelper {
 
-	constructor($scope, $timeout, Upload, uploadOptions) {
+	constructor($scope, $timeout, Upload, attrs) {
         this.scope = $scope;    
 		this.timeout = $timeout;
 		this.Upload = Upload;
-
-		// Get Configurations
-		this.scope.fileUpload = uploadOptions;
+        this.attrs = attrs;
 
 		this.trackUploading();
 	}
@@ -21,6 +19,27 @@ class FileUploadHelper {
      */
     trackUploading() {
     	let tempFiles = [], _this = this;
+
+        // console.log(this.scope[this.attrs.ngModel]);
+
+        this.scope.$watch(this.attrs.ngModel, (files) => {
+            // console.log(this);
+            if (files != null) {
+                if (angular.isArray(files)) {
+                    tempFiles = files;
+                } else {
+                    tempFiles[0] = files;
+                }
+
+                // We have a new file upload.
+                _this.timeout(() => {
+
+                    // _this.scope.fileUpload.files = tempFiles;
+                });
+            }
+        });
+
+        /*
     	this.scope.$watch('fileUpload.files', (files) => {
 
             console.log('after', _this.files && _this.files.length);
@@ -41,7 +60,7 @@ class FileUploadHelper {
     				_this.uploadFile(_this.scope, tempFile, false);
     			});
             }
-    	});
+    	});*/
     }
 
     uploadFile(scope, file, resumable) {
@@ -76,6 +95,10 @@ class FileUploadHelper {
     	file.upload.progress((evt) => {
     		// file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     	});
+    }
+
+    static createUploadReference($scope, $timeout, Upload, attrs) {
+        return new FileUploadHelper($scope, $timeout, Upload, attrs);
     }
 } 
 

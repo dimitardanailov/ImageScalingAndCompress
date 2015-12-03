@@ -1,24 +1,60 @@
-<h2>My Directive</h2>
+<!-- Grid C -->
+<section class="wrapper-grid-c">
+	<!--- Left Cell -->
 
-<ng-compression-file-upload
-	class="dropbox"
-	accept="{{ fileUpload.pattern }}"
-	
-	ngcfu-type="imageUpload"
-	ngcfu-image-proportionally="{{ scaleOptions.proportionally }}"
-	ngcfu-image-progressive-rendering="{{ scaleOptions.progressiveImageRendering }}"
-	ngcfu-image-quality="{{ imageQuality }}"
+	<section class="wrapper-block-a overflow-hidden">
+		<h2>My Directive</h2>
+		<ng-compression-file-upload
+			class="dropbox"
+			accept="{{ firstFileUpload.pattern }}"
+			
+			ngcfu-type="imageUpload"
+			ngcfu-image-proportionally="{{ scaleOptions.proportionally }}"
+			ngcfu-image-progressive-rendering="{{ scaleOptions.progressiveImageRendering }}"
+			ngcfu-image-quality="{{ imageQuality }}"
+			ngcfu-image-option-upload-path="{{ firstFileUpload.backendLocation }}"
+			ngcfu-image-option-imagethumbnailsize-width="{{ firstFileUpload.imageThumbnailSize.width }}"
+			ngcfu-image-option-imagethumbnailsize-height="{{ firstFileUpload.imageThumbnailSize.height }}"
 
-	ng-model="fileUpload.files" 
+			ng-model="firstFileUpload.files" 
 
-	ngcfu-file-upload-class-name="drop-box"
-	ngcfu-ngf-select=""
-	ngcfu-ngf-drop=""
-	ngcfu-ngf-pattern-compile-bind="fileUpload.pattern"
-	ngcfu-ngf-multiple-compile-bind="fileUpload.multiple"
-	ngcfu-ngf-drop-available="dropAvailable">
+			ngcfu-file-upload-class-name="drop-box"
+			ngcfu-ngf-select=""
+			ngcfu-ngf-drop=""
+			ngcfu-ngf-pattern-compile-bind="firstFileUpload.pattern"
+			ngcfu-ngf-multiple-compile-bind="firstFileUpload.multiple"
+			ngcfu-ngf-drop-available="dropAvailable">
 
-</ng-compression-file-upload>
+		</ng-compression-file-upload>
+	</section>
+
+	<!--- Right Cell -->
+	<section class="wrapper-block-b overflow-hidden">
+		<h2>My Directive</h2>
+		<ng-compression-file-upload
+			class="dropbox"
+			accept="{{ secondFileUpload.pattern }}"
+			
+			ngcfu-type="imageUpload"
+			ngcfu-image-proportionally="{{ scaleOptions.proportionally }}"
+			ngcfu-image-progressive-rendering="{{ scaleOptions.progressiveImageRendering }}"
+			ngcfu-image-quality="{{ imageQuality }}"
+			ngcfu-image-option-upload-path="{{ secondFileUpload.backendLocation }}"
+			ngcfu-image-option-imagethumbnailsize-width="{{ secondFileUpload.imageThumbnailSize.width }}"
+			ngcfu-image-option-imagethumbnailsize-height="{{ secondFileUpload.imageThumbnailSize.height }}"
+
+			ng-model="secondFileUpload.files" 
+
+			ngcfu-file-upload-class-name="drop-box"
+			ngcfu-ngf-select=""
+			ngcfu-ngf-drop=""
+			ngcfu-ngf-pattern-compile-bind="secondFileUpload.pattern"
+			ngcfu-ngf-multiple-compile-bind="secondFileUpload.multiple"
+			ngcfu-ngf-drop-available="dropAvailable">
+
+		</ng-compression-file-upload>
+	</section>
+</section>
 
 <hr/>
 

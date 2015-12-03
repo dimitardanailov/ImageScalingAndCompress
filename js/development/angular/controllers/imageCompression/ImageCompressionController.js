@@ -3,8 +3,7 @@ import AngularHelper from './helpers/AngularHelper';
 import WatchHelper from './helpers/WatchHelper';
 
 // FileUploadHelper
-import ImageUploadOption from './helpers/FileUploadHelpers/entities/ImageUploadOption';
-import FileUploadHelper from './helpers/FileUploadHelpers/FileUploadHelper';
+import ImageUploadOption from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/entities/ImageUploadOption';
 
 
 class ImageCompressionController {
@@ -25,9 +24,9 @@ class ImageCompressionController {
 
     	$scope.originalImage.updateLocation($scope);
 
-    	// ng-file-upload
-        const uploadOptions = ImageUploadOption.generateDefaultImageOptions('upload.php');
-        new FileUploadHelper($scope, $timeout, Upload, uploadOptions);
+    	// ng file upload options
+        $scope.firstFileUpload = ImageUploadOption.generateDefaultImageOptions('upload.php');
+        $scope.secondFileUpload = ImageUploadOption.generateDefaultImageOptions('upload.php');
     	
     	// Scope Watch
     	WatchHelper.addWatcherForOriginalImageDetails($scope);

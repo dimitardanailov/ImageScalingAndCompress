@@ -55,6 +55,55 @@ class ApplicationObject extends Object {
 
 		return filteredObject;
 	}
+
+	/**
+	 * Function will extract attributes information from element.
+	 * 
+	 * @description
+	 * @see http://stackoverflow.com/questions/828311/how-to-iterate-through-all-attributes-in-an-html-element
+	 * 
+	 * @property HTMLOjbect element
+	 * 
+	 * @return Object element Attributes
+	 */
+	static extractAttributesFromElement(element) {
+		if (element !== null) {
+			
+			const elementAttributes = {};
+			const angularBracketsExp = new RegExp('^{{([^}]+)}}');
+
+			let attributeName = null, 
+				attributeValue = null,
+				isScopeVariable = false,
+				regExpResponse = null;			
+
+			for (var i = 0; i < element.attributes.length; i++) {
+				attributeName = element.attributes[i].name;
+				attributeValue = element.attributes[i].value;
+				isScopeVariable = false;
+
+				regExpResponse = angularBracketsExp.exec(attributeValue);
+				if (regExpResponse != null && regExpResponse.hasOwnProperty('1')) {
+					attributeValue = regExpResponse[1].trim();
+					isScopeVariable = true;
+				}
+
+				elementAttributes[attributeName] = {
+					'value': attributeValue,
+					'isScopeValue': isScopeVariable
+				};
+			}
+
+			return elementAttributes;
+		} else {
+			throw 'Invalid element';
+		}
+	}
+
+	static getProperty(object, property) {
+
+
+	}
 }
 
 export default ApplicationObject;
