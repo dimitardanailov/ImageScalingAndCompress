@@ -7,6 +7,8 @@ require('angular-ui-router');
 require('ng-file-upload');
 
 // Entities
+// DOM
+require('./entities/DOM/HTMLAttribute.js');
 // Html Containers
 require('./entities/htmlContainers/BaseContainer.js');
 require('./entities/htmlContainers/ImageCompressionContainer.js');

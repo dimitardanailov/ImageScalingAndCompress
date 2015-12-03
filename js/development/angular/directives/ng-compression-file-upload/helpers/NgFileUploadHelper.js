@@ -1,5 +1,6 @@
 import ApplicationArray from 'entities/javascript/array/ApplicationArray';
 import ApplicationObject from 'entities/javascript/object/ApplicationObject';
+import HTMLAttribute from 'entities/DOM/HTMLAttribute.js';
 
 class NgFileUploadHelper {
 
@@ -7,7 +8,6 @@ class NgFileUploadHelper {
 	 * Function will generate object from ng-file-upload object
 	 * 
 	 * @property String elementType
-	 * 
 	 */
 	constructor(elementType, attrs) {
 		this.regExpPattern = 'ngcfuNgf';
@@ -56,18 +56,30 @@ class NgFileUploadHelper {
 		// Add ngf attributes
 		Object.keys(ngFileUploadAttributes).forEach((attributeName) => {
 			value = ngFileUploadAttributes[attributeName];
-			_this.ngFileUploadElement.setAttribute(attributeName, value);
+
+			_this.updateElementWithHTMLAttributeInfo(attributeName, value);
 		});
 
+		// Step 2
 		// Add other attributes
-		let attributeName;
+		let attributeName, tempHTMLAttribute = null;
 		Object.keys(this.attributesMap).forEach((key) => {
 			if (_this.attrs.hasOwnProperty(key)) {
+				
 				attributeName = this.attributesMap[key];
 				value = _this.attrs[key];
-				_this.ngFileUploadElement.setAttribute(attributeName, value);
+				tempHTMLAttribute = HTMLAttribute.callBindAngularBracketsIfNecessary(key, value);
+				_this.ngFileUploadElement.setAttribute(attributeName, tempHTMLAttribute.value);
 			}
 		});
+	}
+
+	/**
+	 * if you is necessary we bind angularjs brackets for value and remove CompileBind from name of attribute
+	 */
+	updateElementWithHTMLAttributeInfo(attributeName, value) {
+		const tempHTMLAttribute = HTMLAttribute.callBindAngularBracketsIfNecessary(attributeName, value);
+		this.ngFileUploadElement.setAttribute(tempHTMLAttribute.name, tempHTMLAttribute.value);
 	}
 
 	/**
@@ -84,4 +96,3 @@ class NgFileUploadHelper {
 }
 
 export default NgFileUploadHelper;
-	
