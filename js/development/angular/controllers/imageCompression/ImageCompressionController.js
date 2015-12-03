@@ -8,8 +8,7 @@ import FileUploadHelper from './helpers/FileUploadHelpers/FileUploadHelper';
 
 
 class ImageCompressionController {
-	constructor ($scope, $http, $timeout, Upload) {
-        
+	constructor ($scope, $http, $timeout, Upload) {        
 		// Initialize
     	$scope.originalImageDetails = { 'width': 0, 'height': 0 };
     	$scope.scaleOptions = AngularConstants.generateScaleOptions();

@@ -2,7 +2,7 @@
 
 <ng-compression-file-upload
 	class="dropbox"
-	accept="{{ fileUpload.pattern }}"
+	accept="fileUpload.pattern"
 	
 	ngcfu-type="imageUpload"
 	ngcfu-image-proportionally="{{ scaleOptions.proportionally }}"
@@ -11,10 +11,11 @@
 
 	ng-model="fileUpload.files" 
 
+	ngcfu-file-upload-class-name="dropbox"
 	ngcfu-ngf-select=""
 	ngcfu-ngf-drop=""
-	ngcfu-ngf-pattern="{{ fileUpload.pattern }}"
-	ngcfu-ngf-multiple="{{ fileUpload.multiple }}"
+	ngcfu-ngf-pattern="fileUpload.pattern"
+	ngcfu-ngf-multiple="fileUpload.multiple"
 	ngcfu-ngf-drop-available="dropAvailable">
 
 </ng-compression-file-upload>
