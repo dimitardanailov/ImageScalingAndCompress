@@ -28,6 +28,10 @@ require('./angular/app.module.js');
 require('./angular/routes/Configuration.js');
 require('./angular/routes/app.routes.js');
 
+
+// Helpers
+require('./angular/helpers/AttributeHelper.js');
+
 // Directives
 // ChangeImageDimensionDirective
 require('./angular/directives/changeImageDimension/ChangeImageDimensionDirective.js');

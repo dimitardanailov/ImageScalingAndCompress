@@ -17,7 +17,8 @@ class ElementCreatorHelper {
 		this.attributesMap = {
 			'accept': 'accept',
 			'ngcfuFileUploadClassName': 'class',
-			'ngModel': 'ng-model'
+			'ngModel': 'ng-model',
+			'ngcfuImageOptionUploadPath': 'upload-path'
 		};
 
 		this.ngFileUploadElement = document.createElement(elementType);

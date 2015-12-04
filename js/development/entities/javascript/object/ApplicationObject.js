@@ -1,3 +1,5 @@
+import ApplicationSting from 'entities/javascript/string/ApplicationSting';
+
 class ApplicationObject extends Object {
 
 	/**
@@ -57,52 +59,117 @@ class ApplicationObject extends Object {
 	}
 
 	/**
-	 * Function will extract attributes information from element.
+	 * Get information from nested object by string key.
 	 * 
-	 * @description
-	 * @see http://stackoverflow.com/questions/828311/how-to-iterate-through-all-attributes-in-an-html-element
-	 * 
-	 * @property HTMLOjbect element
-	 * 
-	 * @return Object element Attributes
+	 * @property Object object
+	 * @property String propertyKey
+	 *	
+	 * @see http://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key
 	 */
-	static extractAttributesFromElement(element) {
-		if (element !== null) {
-			
-			const elementAttributes = {};
-			const angularBracketsExp = new RegExp('^{{([^}]+)}}');
+	static getNestedProperty(object, propertyKey) {
+		const propertyIsNested = ApplicationSting.isNestedProperty(propertyKey);
 
-			let attributeName = null, 
-				attributeValue = null,
-				isScopeVariable = false,
-				regExpResponse = null;			
+		if (propertyIsNested) {
+			// We have nested property
+			const properties = propertyKey.split('.');
 
-			for (var i = 0; i < element.attributes.length; i++) {
-				attributeName = element.attributes[i].name;
-				attributeValue = element.attributes[i].value;
-				isScopeVariable = false;
+			if (Array.isArray(properties)) {
+				let tempValue = null, tempObject = object;
 
-				regExpResponse = angularBracketsExp.exec(attributeValue);
-				if (regExpResponse != null && regExpResponse.hasOwnProperty('1')) {
-					attributeValue = regExpResponse[1].trim();
-					isScopeVariable = true;
-				}
+				properties.forEach((property) => {
+					if (typeof tempObject[property] !== 'undefined') {
+						tempValue = tempObject[property];
+						tempObject = tempValue;
+					}
+				});
 
-				elementAttributes[attributeName] = {
-					'value': attributeValue,
-					'isScopeValue': isScopeVariable
-				};
+				return tempValue;
+			} else {
+				throw `Property: ${propertyKey} is not valid. Should to have dot for delimiter`;
 			}
-
-			return elementAttributes;
 		} else {
-			throw 'Invalid element';
+			if (object.hasOwnProperty(propertyKey)) {
+				return object[propertyKey];
+			}
 		}
 	}
 
-	static getProperty(object, property) {
+	/**
+ 	 * @property Object object
+	 * @property String propertyKey
+	 * @newValue mixed newValue
+	 */
+	static updateNestedObject(object, propertyKey, newValue) {
+		const propertyIsNested = ApplicationSting.isNestedProperty(propertyKey);
 
+		if (propertyIsNested) {
+			// We have nested property
+			const properties = propertyKey.split('.');
 
+			if (Array.isArray(properties)) {
+				const nestedMap = ApplicationObject.getPopertyNestedMap(object, properties, newValue);
+				let tempObject = null,
+					parentObject = null;
+
+				nestedMap.forEach(function(value, key) {
+					if (tempObject == null) {
+						tempObject = new Object();
+					} else {
+						tempObject = parentObject;
+					}
+					
+					tempObject[key] = value;
+
+					// Save parent object
+					parentObject = tempObject[key];
+				});
+
+				console.log('objectPointer', tempObject);
+
+				// shift
+
+			} else {
+				throw `Property: ${propertyKey} is not valid. Should to have dot for delimiter`;
+			}
+		} else {
+			if (object.hasOwnProperty(propertyKey)) {
+				object[propertyKey] = newValue; 
+			}
+		}
+
+		return object;
+	}
+
+	/* 
+	 * If you we have nested property like this:
+	 * node.subnode.subsubnode
+	 * Map should to store every option. We will have these map keys:
+	 * 1) node
+	 * 2) subnode
+	 * 3) subsubnode
+	 * @see https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Map
+	 * 
+	 * @property Object object
+	 * @property Array properties
+	 * @property mixed newValue
+	 */ 
+	static getPopertyNestedMap(object, properties, newValue) {
+		// size of nested properties
+		const size = (properties.length - 1);
+
+		const nestedMap = new Map();
+		let tempValue = null;
+
+		properties.forEach((property, i) => {
+			if (i < size) {
+				tempValue = ApplicationObject.getNestedProperty(object, property);
+				nestedMap.set(property, tempValue);
+			} else {
+				nestedMap.set(property, newValue);
+			}
+		});
+
+		return nestedMap;
 	}
 }
 

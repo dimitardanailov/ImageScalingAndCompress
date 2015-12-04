@@ -1,6 +1,7 @@
 import ElementCreatorHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/ElementCreatorHelper';
 import FileUploadHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/FileUploadHelper';
 import ApplicationObject from 'entities/javascript/object/ApplicationObject';
+import AttributeHelper from 'angular/helpers/AttributeHelper';
 
 /**
  * @ngdoc class
@@ -23,7 +24,7 @@ class CompressionFileUploadController {
 		this.Upload = Upload; 
 
 		this.defaultNgFileUploadType = 'section';
-		this.attributes = null;
+		this.attributeMap = null;
 	}
 
 	/**
@@ -34,11 +35,10 @@ class CompressionFileUploadController {
 	addTrackingForFileUpload(ngFileUploadContainer) {
 		if (ngFileUploadContainer.hasOwnProperty('0')) {
 			const element = ngFileUploadContainer[0];
-			this.attributes = ApplicationObject.extractAttributesFromElement(element);
-			console.log(this.attributes);
+			this.attributeMap = AttributeHelper.getAttributesInformationByElementAndScope(element, this.scope);
+
+			FileUploadHelper.createUploadReference(this.scope, this.timeout, this.Upload, this.attributeMap);
 		}
-		// this.attrs = attrs;
-		// FileUploadHelper.createUploadReference(this.scope, this.timeout, this.Upload, this.attributes);
 	}
 
 	/**

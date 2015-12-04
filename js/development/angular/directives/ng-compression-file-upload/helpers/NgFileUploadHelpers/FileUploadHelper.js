@@ -1,16 +1,23 @@
+import ApplicationObject from 'entities/javascript/object/ApplicationObject';
+
 /**
  * Current implement follow this guide: https://angular-file-upload.appspot.com/js/upload.js
  * We use ng-file-upload for plugin.
  */
 class FileUploadHelper {
 
-	constructor($scope, $timeout, Upload, attrs) {
+	constructor($scope, $timeout, Upload, attributeMap) {
         this.scope = $scope;    
 		this.timeout = $timeout;
 		this.Upload = Upload;
-        this.attrs = attrs;
+        this.attributeMap = attributeMap;
 
-		this.trackUploading();
+        if (this.attributeMap.has('uploadPath')) {
+            this.uploadPath = this.attributeMap.get('uploadPath');
+            this.trackUploading();
+        } else {
+            throw 'You should to specify ngcfu-image-option-upload-path attrbiute'
+        }
 	}
 
     /**
@@ -19,11 +26,8 @@ class FileUploadHelper {
      */
     trackUploading() {
     	let tempFiles = [], _this = this;
-
-        // console.log(this.scope[this.attrs.ngModel]);
-
-        this.scope.$watch(this.attrs.ngModel, (files) => {
-            // console.log(this);
+        const modelReference = this.attributeMap.get('ngModel');
+        this.scope.$watch(modelReference, (files) => {
             if (files != null) {
                 if (angular.isArray(files)) {
                     tempFiles = files;
@@ -33,34 +37,15 @@ class FileUploadHelper {
 
                 // We have a new file upload.
                 _this.timeout(() => {
+                    _this.scope  = ApplicationObject.updateNestedObject(_this.scope, modelReference, tempFiles);
+                });
 
-                    // _this.scope.fileUpload.files = tempFiles;
+                tempFiles.forEach((tempFile, i) => {
+                    console.log('Count files:' + i);
+                    _this.uploadFile(_this.scope, tempFile, false);
                 });
             }
         });
-
-        /*
-    	this.scope.$watch('fileUpload.files', (files) => {
-
-            console.log('after', _this.files && _this.files.length);
-
-    		if (files != null) {
-    			if (angular.isArray(files)) {
-    				tempFiles = files;
-    			} else {
-    				tempFiles[0] = files;
-    			}
-
-                // We have a new file upload.
-                _this.timeout(() => {
-                    _this.scope.fileUpload.files = tempFiles;
-                });
-                
-    			tempFiles.forEach((tempFile) => {
-    				_this.uploadFile(_this.scope, tempFile, false);
-    			});
-            }
-    	});*/
     }
 
     uploadFile(scope, file, resumable) {
@@ -71,8 +56,9 @@ class FileUploadHelper {
      * Upload file to file system.
      */
     uploadUsingUpload(scope, file, resumable) {
+        
     	const fileNameWithEncoding = encodeURIComponent(file.name);
-    	const url = `${this.scope.fileUpload.backendLocation}?name=${fileNameWithEncoding}`;
+    	const url = `${this.uploadPath}?name=${fileNameWithEncoding}`;
 
     	file.upload = this.Upload.upload({
     		'url': url,
@@ -97,8 +83,8 @@ class FileUploadHelper {
     	});
     }
 
-    static createUploadReference($scope, $timeout, Upload, attrs) {
-        return new FileUploadHelper($scope, $timeout, Upload, attrs);
+    static createUploadReference($scope, $timeout, Upload, attributeMap) {
+        return new FileUploadHelper($scope, $timeout, Upload, attributeMap);
     }
 } 
 
