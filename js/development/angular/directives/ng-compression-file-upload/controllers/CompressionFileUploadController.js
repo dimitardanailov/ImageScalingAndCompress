@@ -1,4 +1,4 @@
-import ElementCreatorHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/ElementCreatorHelper';
+import NgFileUploadElement from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadElement';
 import FileUploadHelper from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/FileUploadHelper';
 import ApplicationObject from 'entities/javascript/object/ApplicationObject';
 import AttributeHelper from 'angular/helpers/AttributeHelper';
@@ -53,7 +53,7 @@ class CompressionFileUploadController {
 	 */
 	compileNgFileUploadByAttributes(attrs) {
 		// Generate ng-file-upload element. 
-		const tempElement = ElementCreatorHelper.generateNgFileUploadElements(this.defaultNgFileUploadType, attrs);
+		const tempElement = NgFileUploadElement.generateNgFileUploadElement(this.defaultNgFileUploadType, attrs);
 		const ngFileUploadContainer = angular.element(tempElement);
 
 		const ngFileUploadContainerWithCompilation = this.compile(ngFileUploadContainer)(this.scope);

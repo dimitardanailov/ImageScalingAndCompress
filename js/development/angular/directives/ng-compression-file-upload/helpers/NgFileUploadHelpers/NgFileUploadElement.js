@@ -1,14 +1,15 @@
 import ApplicationArray from 'entities/javascript/array/ApplicationArray';
 import ApplicationObject from 'entities/javascript/object/ApplicationObject';
 import HTMLAttribute from 'entities/DOM/HTMLAttribute';
-import HTMLElement from 'entities/DOM/HTMLElement';
+import NgFileUploadInfoElement from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadInfoElement';
 
-class ElementCreatorHelper {
+class NgFileUploadElement {
 
 	/**
 	 * Function will generate object from ng-file-upload object
 	 * 
 	 * @property String elementType
+	 * @property object attrs ng-compression-file-upload attributes
 	 */
 	constructor(elementType, attrs) {
 		this.regExpPattern = 'ngcfuNgf';
@@ -22,35 +23,37 @@ class ElementCreatorHelper {
 			'ngcfuImageOptionUploadPath': 'upload-path'
 		};
 
-		this.ngFileUploadElement = document.createElement(elementType);
+		this._ngFileUploadElement = document.createElement(elementType);
 		this.attrs = attrs;
 
-		// Create a new element with text info.
-		this.createChildElement();
+		// Reference to NgFileUploadInfoElement
+		this._NgFileUploadInfoElement = this.createChildElement();
 
 		this.ngFileUploadHTMLAttributes = this.getNgFileUploadHTMLAttributes();
 		this.addElementsAttributeInformation();
 	}
 
+	get ngFileUploadElement() {
+		return this._ngFileUploadElement;
+	}
+
+	get NgFileUploadInfoElement() {
+		return this._NgFileUploadInfoElement;
+	}
+
 	/**
 	 * If ngcfuFileUploadChildAvailable exist and ngcfuFileUploadChildAvailable is equal to true, 
 	 * function should to add a div with text info.
+	 * 
+	 * @return mixed null or reference to NgFileUploadInfoElement
  	 */
 	createChildElement() {
-		if (this.attrs.hasOwnProperty('ngcfuFileUploadChildItem') && this.attrs.ngcfuFileUploadChildItem) {
-			const childElement = document.createElement('div');
+		if (this.attrs.hasOwnProperty('ngcfuFileUploadInfoItem') && this.attrs.ngcfuFileUploadInfoItem) {
+			const reference = new NgFileUploadInfoElement(this.ngFileUploadElement, this.attrs);
 
-			// Set Class Name
-			HTMLElement.setAttributeToElement(childElement, 'class', this.attrs, 'ngcfuFileUploadChildItemClassName');
-			// Set innerHTML information
-			HTMLElement.setInnerHTML(childElement, this.attrs, 'ngcfuFileUploadChildItemText');
-
-			// Create drop availabe element
-			this.createChildDropAvailableElement(childElement);
-			// Create sub item element
-			this.createChildSubItem(childElement);
-
-			this.ngFileUploadElement.appendChild(childElement);
+			return reference;
+		} else {
+			return null;
 		}
 	}
 
@@ -158,11 +161,11 @@ class ElementCreatorHelper {
 	 * @property String elementType. @example 'section', 'div'
 	 * @property Object attrs is element attributes.
 	 */
-	static generateNgFileUploadElements(elementType, attrs) {
-		const reference = new ElementCreatorHelper(elementType, attrs);
+	static generateNgFileUploadElement(elementType, attrs) {
+		const reference = new NgFileUploadElement(elementType, attrs);
 		
 		return reference.ngFileUploadElement;
 	}
 }
 
-export default ElementCreatorHelper;
+export default NgFileUploadElement;
