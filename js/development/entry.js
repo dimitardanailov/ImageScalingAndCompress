@@ -46,6 +46,7 @@ require('./angular/directives/ng-compression-file-upload/helpers/NgFileUploadHel
 require('./angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/entities/ImageUploadOption.js');
 require('./angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadElement.js');
 require('./angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadInfoElement.js');
+require('./angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadProgressBar.js')
 require('./angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/FileUploadHelper.js');
 
 // Controllers

@@ -2,6 +2,7 @@ import ApplicationArray from 'entities/javascript/array/ApplicationArray';
 import ApplicationObject from 'entities/javascript/object/ApplicationObject';
 import HTMLAttribute from 'entities/DOM/HTMLAttribute';
 import NgFileUploadInfoElement from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadInfoElement';
+import NgFileUploadProgressBar from 'angular/directives/ng-compression-file-upload/helpers/NgFileUploadHelpers/NgFileUploadProgressBar';
 
 class NgFileUploadElement {
 
@@ -27,18 +28,34 @@ class NgFileUploadElement {
 		this.attrs = attrs;
 
 		// Reference to NgFileUploadInfoElement
-		this._NgFileUploadInfoElement = this.createChildElement();
+		this._NgFileUploadInfoElement = this.createInfoElement();
+
+		// Reference to NgFileUploadProgressBar
+		this._NgFileUploadProgressBar = this.createProgressBar();
 
 		this.ngFileUploadHTMLAttributes = this.getNgFileUploadHTMLAttributes();
 		this.addElementsAttributeInformation();
 	}
 
+	/**
+	 * @return HTMLObject
+	 */
 	get ngFileUploadElement() {
 		return this._ngFileUploadElement;
 	}
 
+	/**
+	 * @return mixed null or HTMLObject
+	 */
 	get NgFileUploadInfoElement() {
 		return this._NgFileUploadInfoElement;
+	}
+
+	/**
+	 * @return mixed null or HTMLObject
+	 */
+	get NgFileUploadProgressBar() {
+		return this._NgFileUploadProgressBar;
 	}
 
 	/**
@@ -47,11 +64,23 @@ class NgFileUploadElement {
 	 * 
 	 * @return mixed null or reference to NgFileUploadInfoElement
  	 */
-	createChildElement() {
+	createInfoElement() {
 		if (this.attrs.hasOwnProperty('ngcfuFileUploadInfoItem') && this.attrs.ngcfuFileUploadInfoItem) {
 			const reference = new NgFileUploadInfoElement(this.ngFileUploadElement, this.attrs);
 
 			return reference;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 */
+	createProgressBar() {
+		if (this.attrs.hasOwnProperty('ngcfuFileUploadProgressbarItem') && this.attrs.ngcfuFileUploadProgressbarItem) {
+
+			console.log('ready');
+
 		} else {
 			return null;
 		}

@@ -101,6 +101,8 @@ class ImageController {
 	 * Try to save in local image file system.
 	 */
 	public function saveImageToFileSystem() {
+		sleep(20);
+
 		// Try to validate input information. 
 		if (isset($_FILES['file']) && is_array($_FILES['file'])) {
 			// $operationResponse is equal to true, if you we can create folder or folder exist.

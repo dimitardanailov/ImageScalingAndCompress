@@ -72,15 +72,16 @@ class FileUploadHelper {
     		} 
     	});
 
+        let progressPercent = 0;
     	file.upload.then((response) => {
             console.log('uploaded');
     	}, function(response) {
     		console.log(response);
-    	});
-
-    	file.upload.progress((evt) => {
-    		// file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-    	});
+    	}, function(event) {
+            console.log('event', event);
+            progressPercent = Math.min(100, parseInt(100.0 * event.loaded / event.total));
+            console.log(progressPercent);
+        });
     }
 
     static createUploadReference($scope, $timeout, Upload, attributeMap) {
