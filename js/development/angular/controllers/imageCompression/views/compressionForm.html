@@ -23,7 +23,9 @@
 			ngcfu-ngf-drop=""
 			ngcfu-ngf-pattern-compile-bind="firstFileUpload.pattern"
 			ngcfu-ngf-multiple-compile-bind="firstFileUpload.multiple"
-			ngcfu-ngf-drop-available="dropAvailable">
+			ngcfu-ngf-drop-available="dropAvailable"
+
+			>
 
 		</ng-compression-file-upload>
 	</section>
@@ -50,7 +52,17 @@
 			ngcfu-ngf-drop=""
 			ngcfu-ngf-pattern-compile-bind="secondFileUpload.pattern"
 			ngcfu-ngf-multiple-compile-bind="secondFileUpload.multiple"
-			ngcfu-ngf-drop-available="dropAvailable">
+			ngcfu-ngf-drop-available="dropAvailable"
+
+			ngcfu-file-upload-child-item="true"
+			ngcfu-file-upload-child-item-text=""
+			ngcfu-file-upload-child-item-class-name="ngcfu-file-upload-child-text"
+			ngcfu-file-upload-child-item-drop-available="true"
+			ngcfu-file-upload-child-item-drop-available-text="Drop Image Here"
+			ngcfu-file-upload-child-item-drop-available-class-name="ngcfu-file-upload-child-text-drop-available"
+			ngcfu-file-upload-child-item-sub-item="true"
+			ngcfu-file-upload-child-item-sub-item-text="Click to browse"
+			ngcfu-file-upload-child-item-sub-item-class-name="display-block">
 
 		</ng-compression-file-upload>
 	</section>
@@ -72,10 +84,8 @@
 	  ngf-validate="validateObj" 
 	  ngf-multiple="{{ fileUpload.multiple }}"
 	  ngf-drop-available="dropAvailable">
-	  <!--
 	 Select File, 
 	 <span ng-show="dropAvailable" class="">Drop File or Paste/Drop Image</span>
-	 -->
 </section>
 
 <section class="preview">

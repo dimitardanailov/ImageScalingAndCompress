@@ -9,6 +9,7 @@ require('ng-file-upload');
 // Entities
 // DOM
 require('./entities/DOM/HTMLAttribute.js');
+require('./entities/DOM/HTMLElement.js');
 // Html Containers
 require('./entities/htmlContainers/BaseContainer.js');
 require('./entities/htmlContainers/ImageCompressionContainer.js');
