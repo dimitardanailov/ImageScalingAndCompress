@@ -1,0 +1,22 @@
+.ngcfu-file-upload-progressbar { 
+	position: relative;
+
+	display: block;
+	width: 150px;
+
+	/*
+	overflow: hidden;
+	*/
+}
+
+.ngcfu-file-upload-progressbar-item-completion-bar {
+	position: relative;
+	top: 0;
+	left: 0;
+
+	display: block;
+	padding: 1.2em 0;
+	width: 25%;
+
+	overflow: hidden;
+}

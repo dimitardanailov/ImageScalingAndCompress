@@ -1,0 +1,17 @@
+/*** Progress bar ***/
+.ngcfu-file-upload-progressbar {
+	border: .1em solid #ccc;
+
+	background-color: #fff;
+}
+
+.ngcfu-file-upload-progressbar-item-completion-bar {
+	background-color: #459cf9;
+}
+
+.ng-compression-file-upload-progressbar-text-info {
+	color: #459cf9;
+
+	font-weight: bold;
+}
+/*** Progress bar ***/

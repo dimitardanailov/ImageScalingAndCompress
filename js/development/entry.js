@@ -17,6 +17,8 @@ require('./entities/htmlContainers/ImageCompressionStatistics.js');
 // Javascript 
 // Arrays
 require('./entities/javascript/array/ApplicationArray.js');
+// Map
+require('./entities/javascript/map/ApplicationMap.js');
 // Object 
 require('./entities/javascript/object/ApplicationObject.js');
 // String

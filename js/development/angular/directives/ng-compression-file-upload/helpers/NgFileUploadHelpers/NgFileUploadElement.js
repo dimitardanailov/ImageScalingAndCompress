@@ -78,9 +78,9 @@ class NgFileUploadElement {
 	 */
 	createProgressBar() {
 		if (this.attrs.hasOwnProperty('ngcfuFileUploadProgressbarItem') && this.attrs.ngcfuFileUploadProgressbarItem) {
+			const reference = new NgFileUploadProgressBar(this.ngFileUploadElement, this.attrs);
 
-			console.log('ready');
-
+			return reference;
 		} else {
 			return null;
 		}

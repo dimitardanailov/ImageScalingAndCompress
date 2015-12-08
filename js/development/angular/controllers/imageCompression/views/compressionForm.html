@@ -55,7 +55,7 @@
 
 			ngcfu-file-upload-info-item="true"
 			ngcfu-file-upload-info-item-text=""
-			ngcfu-file-upload-info-item-class-name="ngcfu-file-upload-item-text"
+			ngcfu-file-upload-info-item-class-name="display-block ngcfu-file-upload-item-text"
 			ngcfu-file-upload-item-item-drop-available="true"
 			ngcfu-file-upload-item-item-drop-available-text="Drop Image Here"
 			ngcfu-file-upload-item-item-drop-available-class-name="ngcfu-file-upload-item-text-drop-available"
@@ -64,33 +64,20 @@
 			ngcfu-file-upload-item-item-sub-item-class-name="display-block"
 
 			ngcfu-file-upload-progressbar-item="true"
-			ngcfu-file-upload-progressbar-item-class-name=""
+			ngcfu-file-upload-progressbar-item-container-class-name="display-block"
+			ngcfu-file-upload-progressbar-item-class-name="ngcfu-file-upload-progressbar"
+			ngcfu-file-upload-progressbar-item-completion-bar-class-name="ngcfu-file-upload-progressbar-item-completion-bar"
+
+			ngcfu-file-upload-progressbar-item-text-info="true"
+			ngcfu-file-upload-progressbar-item-text-info-text="Uploading"
+			ngcfu-file-upload-progressbar-item-text-class-name="display-block ng-compression-file-upload-progressbar-text-info"
 			>
 
 		</ng-compression-file-upload>
 	</section>
 </section>
 
-<hr/>
-
-<h2>Ng file upload</h2>
-
-<section
-	  class="drop-box" 
-	  accept="{{ fileUpload.pattern }}"
-	  ngf-select="" 
-	  ngf-drop="" 
-	  ng-model="fileUpload.files" 
-	  ngf-model-invalid="{{ fileUpload.invalidFiles }}"
-	  ngf-pattern="{{ fileUpload.pattern }}" 
-	  ngf-drag-over-class="dragOverClassObj" 
-	  ngf-validate="validateObj" 
-	  ngf-multiple="{{ fileUpload.multiple }}"
-	  ngf-drop-available="dropAvailable">
-	 Select File, 
-	 <span ng-show="dropAvailable" class="">Drop File or Paste/Drop Image</span>
-</section>
-
+<!--
 <section class="preview">
  	<div>Preview images:</div>
  	<div>Files: {{ fileUpload.files.length }}</div>
@@ -99,6 +86,7 @@
  		     style="max-width: {{ fileUpload.imageThumbnailSize.width }}px; max-height:{{ fileUpload.imageThumbnailSize.height }}px;">
  	</div>
  </section>
+ -->
 
 <hr/>
 

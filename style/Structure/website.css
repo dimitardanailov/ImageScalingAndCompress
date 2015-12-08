@@ -58,5 +58,6 @@ fieldset {
 
 	display: inline-block;
     padding: 120px;
+    overflow: hidden;
 }
 /*** Ng file upload ***/

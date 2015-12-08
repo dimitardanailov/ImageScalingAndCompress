@@ -16,7 +16,7 @@ class FileUploadHelper {
             this.uploadPath = this.attributeMap.get('uploadPath');
             this.trackUploading();
         } else {
-            throw 'You should to specify ngcfu-image-option-upload-path attrbiute'
+            throw 'You should to specify ngcfu-image-option-upload-path attrbiute';
         }
 	}
 
@@ -75,6 +75,7 @@ class FileUploadHelper {
         let progressPercent = 0;
     	file.upload.then((response) => {
             console.log('uploaded');
+            alert('File is uploaded');
     	}, function(response) {
     		console.log(response);
     	}, function(event) {

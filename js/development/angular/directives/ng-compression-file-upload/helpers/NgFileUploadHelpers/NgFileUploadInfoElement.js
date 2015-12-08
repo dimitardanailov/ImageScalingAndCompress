@@ -1,4 +1,5 @@
 import HTMLElement from 'entities/DOM/HTMLElement';
+import ApplicationMap from 'entities/javascript/map/ApplicationMap';
 
 /**
  * This html element is info element. 
@@ -27,7 +28,7 @@ class NgFileUploadInfoElement {
 	}
 
 	/**
-	 * @return mixed null or HTMLObject
+	 * @return HTMLObject
 	 */
 	get infoElement() {
 		return this._infoElement;
@@ -101,22 +102,23 @@ class NgFileUploadInfoElement {
 	 * @return mixed null or HTMLObject
 	 */
 	createItemSubItem() {
-		if (this.attrs.hasOwnProperty('ngcfuFileUploadItemItemSubItem')) {
-			const subItem = document.createElement('span');
+		const attributeMap = ApplicationMap.generateAttributeMap(
+			'ngcfuFileUploadItemItemSubItem',
+			'ngcfuFileUploadItemItemSubItemClassName',
+			'ngcfuFileUploadItemItemSubItemText'
+		);
 
-			// Set Class Name
-			HTMLElement.setAttributeToElement(subItem, 'class', this.attrs, 'ngcfuFileUploadItemItemSubItemClassName');
+		const subItem = HTMLElement.tryToCreateHTMLElement(
+			this.attrs,
+			'span',
+			attributeMap
+		);
 
-			// Set innerHTML information
-			HTMLElement.setInnerHTML(subItem, this.attrs, 'ngcfuFileUploadItemItemSubItemText');
-
-			// Append item to parent
+		if (subItem !== null) {
 			this.infoElement.appendChild(subItem);
-
-			return subItem;
-		} else {
-			return null;
 		}
+
+		return subItem;
 	}
 }
 
